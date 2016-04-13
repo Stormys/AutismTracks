@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AutismTracks</string>
+    <string name="title_activity_task_settings">TaskSettings</string>
+    <string name="new_title">TaskSettings</string>
+</resources>
