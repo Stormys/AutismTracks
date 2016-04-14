@@ -7,6 +7,7 @@ To Download our project:
 
 To Update:
 1. Git pull (to get most up to date project)
+2. Git Add .
 2. Git commit -m "Your message(about what you did)"
 3. Git push (should ask for your github username/password)
 
