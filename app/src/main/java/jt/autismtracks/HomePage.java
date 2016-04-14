@@ -29,7 +29,7 @@ public class HomePage extends ListActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this, TaskSettings.class);
-                startActivityForResult(intent,2);
+                startActivityForResult(intent,1);
             }
         });
     }
@@ -41,7 +41,7 @@ public class HomePage extends ListActivity {
     }
 
     protected void onActivityResult(int requestedCode, int resultCode, Intent data) {
-        if(requestedCode==2) {
+        if(resultCode == RESULT_OK && !data.getStringExtra("Title").equals("")) {
             adapter.add(data.getStringExtra("Title"));
         }
     }

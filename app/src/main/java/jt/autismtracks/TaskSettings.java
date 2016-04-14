@@ -42,7 +42,7 @@ public class TaskSettings extends AppCompatActivity {
                 Intent i = new Intent();
                 EditText temp = (EditText) findViewById(R.id.new_task);
                 i.putExtra("Title", temp.getText().toString());
-                setResult(2,i);
+                setResult(RESULT_OK,i);
                 finish();
             }
         });
