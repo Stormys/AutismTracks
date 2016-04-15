@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 
 public class HomePage extends ListActivity {
 
-    private ArrayList<String> values = new ArrayList<String>();
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Task> values = new ArrayList<Task>();
+    private TaskAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +42,17 @@ public class HomePage extends ListActivity {
     }
 
     private void create_adapter() {
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, values);
+        adapter = new TaskAdapter(this, R.layout.list_view_row_item, values);
         setListAdapter(adapter);
         writeToAdaptor();
     }
 
     protected void onActivityResult(int requestedCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK && !data.getStringExtra("Title").equals("")) {
-            writeToAdaptor();
+            Task t = new Task();
+            t.setTitle(data.getStringExtra("Title"));
+            t.setDate(data.getStringExtra("Date"));
+            adapter.add(t);
         }
     }
 
@@ -59,19 +62,24 @@ public class HomePage extends ListActivity {
         InputStreamReader i_stream_reader;
         BufferedReader br;
 
-        StringBuilder finalString = new StringBuilder();
         String line;
+        String[] tokens;
         try {
             i_stream = openFileInput(filename);
             i_stream_reader = new InputStreamReader(i_stream);
             br = new BufferedReader(i_stream_reader);
             while ((line = br.readLine()) != null) {
-                finalString.append(line);
+                tokens = line.split(";");
+                Log.e("Token 0:", tokens[0]);
+                Log.e("Token 1:", tokens[1]);
+                Task t = new Task();
+                t.setTitle(tokens[0]);
+                t.setDate(tokens[1]);
+                adapter.add(t);
             }
             br.close();
             i_stream_reader.close();
             i_stream.close();
-            adapter.add(finalString.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

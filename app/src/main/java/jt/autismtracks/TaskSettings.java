@@ -21,10 +21,15 @@ import java.util.Calendar;
 
 public class TaskSettings extends AppCompatActivity {
 
+    private  EditText temp;
+    private TextView tvDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_settings);
+        temp = (EditText) findViewById(R.id.new_task);
+        tvDate = (TextView) findViewById(R.id.date);
         create_toolbar();
         create_submit_button();
     }
@@ -42,22 +47,23 @@ public class TaskSettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent();
-                EditText temp = (EditText) findViewById(R.id.new_task);
+
                 i.putExtra("Title", temp.getText().toString());
+                i.putExtra("Date", tvDate.getText().toString());
                 setResult(RESULT_OK,i);
-                Task task = new Task(temp.getText().toString());
-                writeInternal(task);
+                writeInternal();
                 finish();
             }
         });
     }
 
-    public void writeInternal(Task task) {
+    public void writeInternal() {
         String filename = "myTasks";
         FileOutputStream o_stream;
+
         try {
             o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
-            o_stream.write(task.getTitle().getBytes());
+            o_stream.write((temp.getText().toString() + ";" + tvDate.getText().toString() + "\n").getBytes());
             o_stream.close();
         } catch (Exception e) {
             e.printStackTrace();
