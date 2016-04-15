@@ -28,15 +28,27 @@ public class HomePage extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         create_adapter();
-        insert_button();
+        insert_create_button();
+        insert_delete_button();
     }
 
-    private void insert_button() {
+    private void insert_create_button() {
         Button button = (Button) findViewById(R.id.NewTask);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this, TaskSettings.class);
                 startActivityForResult(intent,1);
+            }
+        });
+    }
+
+    private void insert_delete_button() {
+        Button button = (Button) findViewById(R.id.delete_all);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                values.clear();
+                adapter.notifyDataSetChanged();
+                deleteFile("myTasks");
             }
         });
     }
