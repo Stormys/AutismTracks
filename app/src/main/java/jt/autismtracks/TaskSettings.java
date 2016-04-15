@@ -2,6 +2,7 @@ package jt.autismtracks;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 public class TaskSettings extends AppCompatActivity {
@@ -43,9 +45,23 @@ public class TaskSettings extends AppCompatActivity {
                 EditText temp = (EditText) findViewById(R.id.new_task);
                 i.putExtra("Title", temp.getText().toString());
                 setResult(RESULT_OK,i);
+                Task task = new Task(temp.getText().toString());
+                writeInternal(task);
                 finish();
             }
         });
+    }
+
+    public void writeInternal(Task task) {
+        String filename = "myTasks";
+        FileOutputStream o_stream;
+        try {
+            o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
+            o_stream.write(task.getTitle().getBytes());
+            o_stream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void showDatePickerDialog(View v) {
