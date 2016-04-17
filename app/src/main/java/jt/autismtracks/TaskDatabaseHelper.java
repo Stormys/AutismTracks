@@ -16,9 +16,8 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TaskTableContents.TaskEntry.TABLE_NAME + " (" +
                     TaskTableContents.TaskEntry._ID + " INTEGER PRIMARY KEY," +
-                    TaskTableContents.TaskEntry.COLUMN_NAME_Task_ID + TEXT_TYPE + COMMA_SEP +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Task + TEXT_TYPE + COMMA_SEP +
-            " )";
+                    TaskTableContents.TaskEntry.COLUMN_NAME_Date + TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TaskTableContents.TaskEntry.TABLE_NAME;

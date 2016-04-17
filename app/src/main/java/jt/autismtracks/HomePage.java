@@ -3,6 +3,7 @@ package jt.autismtracks;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,29 +70,41 @@ public class HomePage extends ListActivity {
     }
 
     private void writeToAdaptor() {
-        String filename = "myTasks";
-        FileInputStream i_stream ;
-        InputStreamReader i_stream_reader;
-        BufferedReader br;
+        TaskDatabase td = new TaskDatabase(this);
+        Cursor results = td.getTasks();
+        results.moveToFirst();
 
-        String line;
-        String[] tokens;
-        try {
-            i_stream = openFileInput(filename);
-            i_stream_reader = new InputStreamReader(i_stream);
-            br = new BufferedReader(i_stream_reader);
-            while ((line = br.readLine()) != null) {
-                tokens = line.split(";");
-                Task t = new Task();
-                t.setTitle(tokens[0]);
-                t.setDate(tokens[1]);
-                adapter.add(t);
-            }
-            br.close();
-            i_stream_reader.close();
-            i_stream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (results.isAfterLast() == false) {
+            Task t = new Task();
+            t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
+            t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Date)));
+            adapter.add(t);
+            results.moveToNext();
         }
+
+//        String filename = "myTasks";
+//        FileInputStream i_stream ;
+//        InputStreamReader i_stream_reader;
+//        BufferedReader br;
+//
+//        String line;
+//        String[] tokens;
+//        try {
+//            i_stream = openFileInput(filename);
+//            i_stream_reader = new InputStreamReader(i_stream);
+//            br = new BufferedReader(i_stream_reader);
+//            while ((line = br.readLine()) != null) {
+//                tokens = line.split(";");
+//                Task t = new Task();
+//                t.setTitle(tokens[0]);
+//                t.setDate(tokens[1]);
+//                adapter.add(t);
+//            }
+//            br.close();
+//            i_stream_reader.close();
+//            i_stream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

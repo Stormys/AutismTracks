@@ -73,16 +73,20 @@ public class TaskSettings extends AppCompatActivity {
     }
 
     public void writeInternal() {
-        String filename = "myTasks";
-        FileOutputStream o_stream;
+        TaskDatabase td = new TaskDatabase(this);
+        td.open();
+        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString());
 
-        try {
-            o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
-            o_stream.write(((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task") + ";" + tvDate.getText().toString() + " " +  tvTime.getText().toString() + "\n").getBytes());
-            o_stream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String filename = "myTasks";
+//        FileOutputStream o_stream;
+//
+//        try {
+//            o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
+//            o_stream.write(((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task") + ";" + tvDate.getText().toString() + " " +  tvTime.getText().toString() + "\n").getBytes());
+//            o_stream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void showDatePickerDialog(View v) {
