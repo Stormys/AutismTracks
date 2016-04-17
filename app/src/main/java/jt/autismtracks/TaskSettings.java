@@ -3,7 +3,6 @@ package jt.autismtracks;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,8 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-
-import java.io.FileOutputStream;
 import java.util.Calendar;
 
 public class TaskSettings extends AppCompatActivity {
@@ -63,7 +60,7 @@ public class TaskSettings extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent();
 
-                i.putExtra("Title", temp.getText().toString());
+                i.putExtra("Title", (!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"));
                 i.putExtra("Date", tvDate.getText().toString() + " " + tvTime.getText().toString());
                 setResult(RESULT_OK, i);
                 writeInternal();
@@ -76,17 +73,6 @@ public class TaskSettings extends AppCompatActivity {
         TaskDatabase td = new TaskDatabase(this);
         td.open();
         td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString());
-
-//        String filename = "myTasks";
-//        FileOutputStream o_stream;
-//
-//        try {
-//            o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
-//            o_stream.write(((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task") + ";" + tvDate.getText().toString() + " " +  tvTime.getText().toString() + "\n").getBytes());
-//            o_stream.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     public void showDatePickerDialog(View v) {

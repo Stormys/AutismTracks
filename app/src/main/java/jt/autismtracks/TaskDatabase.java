@@ -14,12 +14,6 @@ public class TaskDatabase {
     private TaskDatabaseHelper DBhelper;
     private SQLiteDatabase db;
 
-    private String[] projection = {
-            TaskTableContents.TaskEntry._ID,
-            TaskTableContents.TaskEntry.COLUMN_NAME_Task,
-            TaskTableContents.TaskEntry.COLUMN_NAME_Date,
-    };
-
     public TaskDatabase(Context context) {
         this.context = context;
         DBhelper = new TaskDatabaseHelper(context);
@@ -40,6 +34,11 @@ public class TaskDatabase {
         db = DBhelper.getReadableDatabase();
         Cursor c = db.rawQuery( "select * from " + TaskTableContents.TaskEntry.TABLE_NAME, null );
         return c;
+    }
+
+    public void delete_all() {
+        db = DBhelper.getWritableDatabase();
+        DBhelper.delete_all(db);
     }
 }
 

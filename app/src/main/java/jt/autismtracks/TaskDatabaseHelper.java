@@ -37,4 +37,9 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
+    public void delete_all(SQLiteDatabase db) {
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
+    }
 }

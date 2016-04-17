@@ -23,6 +23,7 @@ public class HomePage extends ListActivity {
 
     private ArrayList<Task> values = new ArrayList<Task>();
     private TaskAdapter adapter;
+    private TaskDatabase td = new TaskDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class HomePage extends ListActivity {
             public void onClick(View v) {
                 values.clear();
                 adapter.notifyDataSetChanged();
-                deleteFile("myTasks");
+                td.delete_all();
             }
         });
     }
@@ -70,41 +71,15 @@ public class HomePage extends ListActivity {
     }
 
     private void writeToAdaptor() {
-        TaskDatabase td = new TaskDatabase(this);
         Cursor results = td.getTasks();
         results.moveToFirst();
 
         while (results.isAfterLast() == false) {
             Task t = new Task();
             t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
-            t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Date)));
+            t.setDate(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Date)));
             adapter.add(t);
             results.moveToNext();
         }
-
-//        String filename = "myTasks";
-//        FileInputStream i_stream ;
-//        InputStreamReader i_stream_reader;
-//        BufferedReader br;
-//
-//        String line;
-//        String[] tokens;
-//        try {
-//            i_stream = openFileInput(filename);
-//            i_stream_reader = new InputStreamReader(i_stream);
-//            br = new BufferedReader(i_stream_reader);
-//            while ((line = br.readLine()) != null) {
-//                tokens = line.split(";");
-//                Task t = new Task();
-//                t.setTitle(tokens[0]);
-//                t.setDate(tokens[1]);
-//                adapter.add(t);
-//            }
-//            br.close();
-//            i_stream_reader.close();
-//            i_stream.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 }
