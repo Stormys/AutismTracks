@@ -78,7 +78,7 @@ public class TaskSettings extends AppCompatActivity {
 
         try {
             o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
-            o_stream.write((temp.getText().toString() + ";" + tvDate.getText().toString() + " " +  tvTime.getText().toString() + "\n").getBytes());
+            o_stream.write(((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task") + ";" + tvDate.getText().toString() + " " +  tvTime.getText().toString() + "\n").getBytes());
             o_stream.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class TaskSettings extends AppCompatActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            int hour = c.get(Calendar.HOUR);
+            int hour = c.get(Calendar.HOUR_OF_DAY);
             int day = c.get(Calendar.MINUTE);
 
             return new TimePickerDialog(getActivity(),this,hour,day,false);

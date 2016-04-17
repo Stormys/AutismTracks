@@ -19,6 +19,7 @@
         <activity
             android:name=".TaskSettings"
             android:label="@string/title_activity_task_settings"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomePage"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
