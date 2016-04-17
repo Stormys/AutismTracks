@@ -82,8 +82,6 @@ public class HomePage extends ListActivity {
             br = new BufferedReader(i_stream_reader);
             while ((line = br.readLine()) != null) {
                 tokens = line.split(";");
-                Log.e("Token 0:", tokens[0]);
-                Log.e("Token 1:", tokens[1]);
                 Task t = new Task();
                 t.setTitle(tokens[0]);
                 t.setDate(tokens[1]);

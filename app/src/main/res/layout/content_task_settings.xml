@@ -10,13 +10,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="jt.autismtracks.TaskSettings"
     android:clickable="true"
-    android:onClick="showDatePickerDialog"
     tools:showIn="@layout/activity_task_settings">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/new_task"
+        android:singleLine="true"
         android:hint="Title"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -31,6 +31,16 @@
         android:layout_alignParentStart="true"
         android:onClick="showDatePickerDialog"
         android:background="?attr/editTextBackground"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Time Selected"
+        android:id="@+id/time"
+        android:onClick="showTimePickerDialog"
+        android:background="?attr/editTextBackground"
+        android:layout_below="@+id/date"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

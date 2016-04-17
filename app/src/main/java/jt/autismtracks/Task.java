@@ -11,8 +11,8 @@ import java.util.Date;
  */
 public class Task {
     // private variables
-    private String title;
-    private Date date;
+    private String title = null;
+    private Date date = null;
 
     // constructors
     public Task() {
@@ -24,10 +24,14 @@ public class Task {
 
     // setters and getters
     public void setTitle(String title) { this.title = title; }
-    public String getTitle() { return title; }
+    public String getTitle() {
+        if (title != null)
+            return title;
+        return "New Task";
+    }
 
     public void setDate(String dateAsString) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
         try {
             date = formatter.parse(dateAsString);
         } catch (ParseException e) {
@@ -35,7 +39,10 @@ public class Task {
         }
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        if (date != null) {
+            return date.toString();
+        }
+        return "No Date";
     }
 }

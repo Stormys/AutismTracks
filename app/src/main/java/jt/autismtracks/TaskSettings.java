@@ -2,8 +2,10 @@ package jt.autismtracks;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -14,15 +16,23 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.w3c.dom.Text;
 
 import java.io.FileOutputStream;
 import java.util.Calendar;
 
 public class TaskSettings extends AppCompatActivity {
 
-    private  EditText temp;
+    private EditText temp;
     private TextView tvDate;
+    private TextView tvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,8 @@ public class TaskSettings extends AppCompatActivity {
         setContentView(R.layout.activity_task_settings);
         temp = (EditText) findViewById(R.id.new_task);
         tvDate = (TextView) findViewById(R.id.date);
+        tvTime = (TextView) findViewById(R.id.time);
+
         create_toolbar();
         create_submit_button();
     }
@@ -49,8 +61,8 @@ public class TaskSettings extends AppCompatActivity {
                 Intent i = new Intent();
 
                 i.putExtra("Title", temp.getText().toString());
-                i.putExtra("Date", tvDate.getText().toString());
-                setResult(RESULT_OK,i);
+                i.putExtra("Date", tvDate.getText().toString() + " " + tvTime.getText().toString());
+                setResult(RESULT_OK, i);
                 writeInternal();
                 finish();
             }
@@ -75,6 +87,12 @@ public class TaskSettings extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(),"TimePicker");
+    }
+
+
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
@@ -97,4 +115,28 @@ public class TaskSettings extends AppCompatActivity {
             tvDate.setText(MONTHS[month] + " " + String.valueOf(day) + ", " + String.valueOf(year));
         }
     }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR);
+            int day = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(),this,hour,day,false);
+        }
+
+        @Override
+        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+            TextView tvTime = (TextView) getActivity().findViewById(R.id.time);
+            if (hour > 12) {
+                tvTime.setText(hour % 12 + ":" + minute + " PM");
+            } else {
+                tvTime.setText(hour + ":" + minute + " AM");
+            }
+        }
+    }
+
 }

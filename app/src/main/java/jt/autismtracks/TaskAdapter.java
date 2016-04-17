@@ -42,7 +42,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         TitleItem.setText(objectItem.getTitle());
 
         TextView DateItem = (TextView) convertView.findViewById(R.id.Date);
-        DateItem.setText(objectItem.getDate().toString());
+        DateItem.setText(objectItem.getDate());
 
         return convertView;
 
