@@ -38,7 +38,7 @@ public class TaskSettings extends AppCompatActivity {
         tvTime = (TextView) findViewById(R.id.time);
 
         tvDate.setText(MONTHS[c.get(Calendar.MONTH)] + " " + String.valueOf(c.get(Calendar.DAY_OF_MONTH)) + ", " + String.valueOf(c.get(Calendar.YEAR)));
-        int hour = c.get(Calendar.HOUR);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
         if (hour > 12) {
             tvTime.setText(hour % 12 + ":" + String.format("%02d", c.get(Calendar.MINUTE)) + " PM");
         } else {
@@ -78,7 +78,7 @@ public class TaskSettings extends AppCompatActivity {
 
         try {
             o_stream = openFileOutput(filename, Context.MODE_PRIVATE | MODE_APPEND);
-            o_stream.write((temp.getText().toString() + ";" + tvDate.getText().toString() + "\n").getBytes());
+            o_stream.write((temp.getText().toString() + ";" + tvDate.getText().toString() + " " +  tvTime.getText().toString() + "\n").getBytes());
             o_stream.close();
         } catch (Exception e) {
             e.printStackTrace();
