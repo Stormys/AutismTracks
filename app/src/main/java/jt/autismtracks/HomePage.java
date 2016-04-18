@@ -34,6 +34,8 @@ public class HomePage extends ListActivity {
         create_adapter();
         insert_create_button();
         insert_delete_button();
+        create_show_checked_button();
+        item_clickers();
     }
 
     private void insert_create_button() {
@@ -43,6 +45,27 @@ public class HomePage extends ListActivity {
                 Intent intent = new Intent(HomePage.this, TaskSettings.class);
                 startActivityForResult(intent,1);
             }
+        });
+    }
+
+    private void create_show_checked_button() {
+        Button button = (Button) findViewById(R.id.show_checked);
+        button.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+             adapter.clear();
+             Cursor results = td.getChecked();
+             results.moveToFirst();
+
+             while (results.isAfterLast() == false) {
+                 Task t = new Task();
+                 t.setRowId(results.getLong(0));
+                 t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
+                 t.setDate(results.getLong(2));
+                 t.setDone(results.getInt(3));
+                 adapter.add(t);
+                 results.moveToNext();
+             }
+         }
         });
     }
 
@@ -60,14 +83,6 @@ public class HomePage extends ListActivity {
     private void create_adapter() {
         adapter = new TaskAdapter(this, R.layout.list_view_row_item, values);
         setListAdapter(adapter);
-        ListView lv = (ListView) findViewById(android.R.id.list);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("Hello","What");
-            }
-        });
-
         writeToAdaptor();
     }
 
@@ -84,11 +99,22 @@ public class HomePage extends ListActivity {
 
         while (results.isAfterLast() == false) {
             Task t = new Task();
+            t.setRowId(results.getLong(0));
             t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
             t.setDate(results.getLong(2));
             t.setDone(results.getInt(3));
             adapter.add(t);
             results.moveToNext();
         }
+    }
+
+    private void item_clickers() {
+        ListView lv = (ListView) findViewById(android.R.id.list);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("Hello","What");
+            }
+        });
     }
 }

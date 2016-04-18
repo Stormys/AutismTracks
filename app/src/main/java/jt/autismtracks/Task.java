@@ -16,6 +16,7 @@ public class Task {
     private String title = null;
     private Date date = null;
     private boolean Done = false;
+    private long rowId;
 
     // constructors
     public Task() {
@@ -60,7 +61,19 @@ public class Task {
             Done = false;
     }
 
+    public void setDone(boolean temp) {
+        Done = temp;
+    }
+
     public boolean getDone() {
         return Done;
+    }
+
+    public void setRowId(long id) {
+        rowId = id;
+    }
+
+    public long getRowId() {
+        return rowId;
     }
 }

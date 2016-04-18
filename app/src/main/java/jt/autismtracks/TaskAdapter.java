@@ -31,7 +31,7 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null){
             // inflate the layout
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
@@ -39,7 +39,7 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
         }
 
         // object item based on the position
-        Task objectItem = obj.get(position);
+        final Task objectItem = obj.get(position);
 
         TextView TitleItem = (TextView) convertView.findViewById(R.id.TitleName);
         TitleItem.setText(objectItem.getTitle());
@@ -47,8 +47,16 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
         TextView DateItem = (TextView) convertView.findViewById(R.id.Date);
         DateItem.setText(objectItem.getDate());
 
-        CheckBox CheckItem = (CheckBox) convertView.findViewById(R.id.checkBox);
+        final CheckBox CheckItem = (CheckBox) convertView.findViewById(R.id.checkBox);
         CheckItem.setChecked(objectItem.getDone());
+        CheckItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                objectItem.setDone(CheckItem.isChecked());
+                TaskDatabase td = new TaskDatabase(mContext);
+                td.update_checked(objectItem.getRowId(),objectItem.getDone());
+            }
+        });
 
         return convertView;
     }
