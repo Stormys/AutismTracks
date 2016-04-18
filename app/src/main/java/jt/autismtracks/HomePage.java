@@ -86,6 +86,7 @@ public class HomePage extends ListActivity {
             Task t = new Task();
             t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
             t.setDate(results.getLong(2));
+            t.setDone(results.getInt(3));
             adapter.add(t);
             results.moveToNext();
         }

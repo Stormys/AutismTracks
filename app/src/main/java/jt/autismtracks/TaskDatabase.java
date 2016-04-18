@@ -36,6 +36,7 @@ public class TaskDatabase {
             ContentValues initialValues = new ContentValues();
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Task, title);
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Date, date.getTime());
+            initialValues.put(TaskTableContents.TaskEntry.Column_Name_Done,true);
             db.insert(TaskTableContents.TaskEntry.TABLE_NAME, null, initialValues);
         } catch (ParseException e) {
             Log.e("Date Parsing", "Unable to parse inputted date to date object");

@@ -15,6 +15,7 @@ public class Task {
     // private variables
     private String title = null;
     private Date date = null;
+    private boolean Done = false;
 
     // constructors
     public Task() {
@@ -50,5 +51,16 @@ public class Task {
             return date.toString();
         }
         return "No Date";
+    }
+
+    public void setDone(int temp) {
+        if (temp == 1)
+            Done = true;
+        else
+            Done = false;
+    }
+
+    public boolean getDone() {
+        return Done;
     }
 }

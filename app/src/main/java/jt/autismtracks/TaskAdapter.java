@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
 
         TextView DateItem = (TextView) convertView.findViewById(R.id.Date);
         DateItem.setText(objectItem.getDate());
+
+        CheckBox CheckItem = (CheckBox) convertView.findViewById(R.id.checkBox);
+        CheckItem.setChecked(objectItem.getDone());
 
         return convertView;
     }

@@ -13,5 +13,6 @@ public class TaskTableContents {
         public static final String TABLE_NAME = "Tasks";
         public static final String COLUMN_NAME_Task = "task";
         public static final String COLUMN_NAME_Date = "date";
+        public static final String Column_Name_Done = "done";
     }
 }
