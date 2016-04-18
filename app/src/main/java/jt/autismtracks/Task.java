@@ -26,7 +26,6 @@ public class Task {
         this.title = title;
     }
 
-    // setters and getters
     public void setTitle(String title) { this.title = title; }
     public String getTitle() {
         if (title != null)

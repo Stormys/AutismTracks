@@ -1,25 +1,16 @@
 package jt.autismtracks;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class HomePage extends ListActivity {
 
@@ -52,19 +43,7 @@ public class HomePage extends ListActivity {
         Button button = (Button) findViewById(R.id.show_checked);
         button.setOnClickListener(new View.OnClickListener() {
          public void onClick(View v) {
-             adapter.clear();
-             Cursor results = td.getChecked();
-             results.moveToFirst();
-
-             while (results.isAfterLast() == false) {
-                 Task t = new Task();
-                 t.setRowId(results.getLong(0));
-                 t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
-                 t.setDate(results.getLong(2));
-                 t.setDone(results.getInt(3));
-                 adapter.add(t);
-                 results.moveToNext();
-             }
+             cursor_to_tasks(td.getChecked());
          }
         });
     }
@@ -83,18 +62,31 @@ public class HomePage extends ListActivity {
     private void create_adapter() {
         adapter = new TaskAdapter(this, R.layout.list_view_row_item, values);
         setListAdapter(adapter);
-        writeToAdaptor();
+        write_list();
     }
 
     protected void onActivityResult(int requestedCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
-            values.clear();
-            writeToAdaptor();
+            write_list();
         }
     }
 
-    private void writeToAdaptor() {
-        Cursor results = td.getTasks();
+    private void write_list() {
+        cursor_to_tasks(td.getTasks());
+    }
+
+    private void item_clickers() {
+        ListView lv = (ListView) findViewById(android.R.id.list);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("Hello","What");
+            }
+        });
+    }
+
+    private void cursor_to_tasks(Cursor results) {
+        adapter.clear();
         results.moveToFirst();
 
         while (results.isAfterLast() == false) {
@@ -106,15 +98,5 @@ public class HomePage extends ListActivity {
             adapter.add(t);
             results.moveToNext();
         }
-    }
-
-    private void item_clickers() {
-        ListView lv = (ListView) findViewById(android.R.id.list);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("Hello","What");
-            }
-        });
     }
 }
