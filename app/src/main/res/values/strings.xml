@@ -3,4 +3,6 @@
     <string name="title_activity_task_settings">TaskSettings</string>
     <string name="new_title">TaskSettings</string>
     <string name="title_activity_head_quarter">HeadQuarter</string>
+    <string name="title_activity_goals">Goals</string>
+    <string name="title_activity_rewards">Rewards</string>
 </resources>

@@ -26,13 +26,31 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HomePage" />
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".HomePage"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Goals"
+            android:label="@string/title_activity_goals"
+            android:parentActivityName=".HeadQuarter"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jt.autismtracks.HeadQuarter" />
+        </activity>
+        <activity
+            android:name=".Rewards"
+            android:label="@string/title_activity_rewards"
+            android:parentActivityName=".HeadQuarter"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jt.autismtracks.HeadQuarter" />
         </activity>
     </application>
 
