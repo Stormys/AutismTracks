@@ -12,12 +12,13 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "TaskDatabase.db";
 
     private static final String TEXT_TYPE = " TEXT";
+    private static final String Date_TYPE = " long";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TaskTableContents.TaskEntry.TABLE_NAME + " (" +
                     TaskTableContents.TaskEntry._ID + " INTEGER PRIMARY KEY," +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Task + TEXT_TYPE + COMMA_SEP +
-                    TaskTableContents.TaskEntry.COLUMN_NAME_Date + TEXT_TYPE +" )";
+                    TaskTableContents.TaskEntry.COLUMN_NAME_Date + Date_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TaskTableContents.TaskEntry.TABLE_NAME;

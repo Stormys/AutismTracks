@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HomePage extends ListActivity {
 
@@ -77,7 +78,7 @@ public class HomePage extends ListActivity {
         while (results.isAfterLast() == false) {
             Task t = new Task();
             t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
-            t.setDate(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Date)));
+            t.setDate(results.getLong(2));
             adapter.add(t);
             results.moveToNext();
         }

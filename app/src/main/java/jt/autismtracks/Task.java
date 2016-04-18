@@ -41,6 +41,10 @@ public class Task {
         }
     }
 
+    public void setDate(long n) {
+        date = new Date(n);
+    }
+
     public String getDate() {
         if (date != null) {
             return date.toString();
