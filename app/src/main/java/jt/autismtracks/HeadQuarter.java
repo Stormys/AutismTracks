@@ -27,14 +27,8 @@ public class HeadQuarter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head_quarter);
-        create_toolbar();
         set_list_adapter();
         set_fab_clicker();
-    }
-
-    private void create_toolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     private void set_list_adapter() {
