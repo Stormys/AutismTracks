@@ -56,19 +56,8 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
                 objectItem.setDone(CheckItem.isChecked());
                 TaskDatabase td = new TaskDatabase(mContext);
                 td.update_checked(objectItem.getRowId(),objectItem.getDone());
-                obj.clear();
-                Cursor results = td.getTasks();
-                results.moveToFirst();
-
-                while (results.isAfterLast() == false) {
-                    Task t = new Task();
-                    t.setRowId(results.getLong(0));
-                    t.setTitle(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Task)));
-                    t.setDate(results.getLong(2));
-                    t.setDone(results.getInt(3));
-                    add(t);
-                    results.moveToNext();
-                }
+                obj.remove(position);
+                notifyDataSetChanged();
             }
         });
         return convertView;
