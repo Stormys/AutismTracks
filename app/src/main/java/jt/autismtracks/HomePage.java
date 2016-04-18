@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -59,15 +60,21 @@ public class HomePage extends ListActivity {
     private void create_adapter() {
         adapter = new TaskAdapter(this, R.layout.list_view_row_item, values);
         setListAdapter(adapter);
+        ListView lv = (ListView) findViewById(android.R.id.list);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("Hello","What");
+            }
+        });
+
         writeToAdaptor();
     }
 
     protected void onActivityResult(int requestedCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK && !data.getStringExtra("Title").equals("")) {
-            Task t = new Task();
-            t.setTitle(data.getStringExtra("Title"));
-            t.setDate(data.getStringExtra("Date"));
-            adapter.add(t);
+        if(resultCode == RESULT_OK) {
+            values.clear();
+            writeToAdaptor();
         }
     }
 

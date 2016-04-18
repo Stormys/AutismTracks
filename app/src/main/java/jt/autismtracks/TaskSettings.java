@@ -59,9 +59,6 @@ public class TaskSettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent();
-
-                i.putExtra("Title", (!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"));
-                i.putExtra("Date", tvDate.getText().toString() + " " + tvTime.getText().toString());
                 setResult(RESULT_OK, i);
                 writeInternal();
                 finish();
