@@ -56,8 +56,8 @@ public class AlarmReceiver extends AppCompatActivity {
                 return false;
             }
         });
-        //playSound(this, getAlarmUri());
-        playSound(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        playSound(this, getAlarmUri());
+        //playSound(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         sendNotification("Test");
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
