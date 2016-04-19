@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.ArrayList;
@@ -109,6 +110,10 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent b = new Intent(HomePage.this, TaskSettings.class);
+                TextView temp = (TextView) view.findViewById(R.id.TitleName);
+                TextView date = (TextView) view.findViewById(R.id.Date);
+                b.putExtra("Title",temp.getText().toString());
+                b.putExtra("Date",date.getText().toString());
                 startActivity(b);
             }
         });
@@ -143,10 +148,12 @@ public class HomePage extends AppCompatActivity {
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Task t = new Task();
-                        t.setTitle(editText.getText().toString());
-                        adapter.add(t);
-                        td.insertEmptyTask(editText.getText().toString());
+                        if (!editText.getText().toString().equals("")) {
+                            Task t = new Task();
+                            t.setTitle(editText.getText().toString());
+                            adapter.add(t);
+                            td.insertEmptyTask(editText.getText().toString());
+                        }
                     }
                 })
                 .setNegativeButton("Cancel",

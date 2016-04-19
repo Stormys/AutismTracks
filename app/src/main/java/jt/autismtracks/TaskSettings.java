@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -36,22 +37,38 @@ public class TaskSettings extends AppCompatActivity {
         temp = (EditText) findViewById(R.id.new_task);
         tvDate = (TextView) findViewById(R.id.date);
         tvTime = (TextView) findViewById(R.id.time);
-
-        tvDate.setText(MONTHS[c.get(Calendar.MONTH)] + " " + String.valueOf(c.get(Calendar.DAY_OF_MONTH)) + ", " + String.valueOf(c.get(Calendar.YEAR)));
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        if (hour > 12) {
-            tvTime.setText(hour % 12 + ":" + String.format("%02d", c.get(Calendar.MINUTE)) + " PM");
-        } else {
-            tvTime.setText(hour + ":" + String.format("%02d",c.get(Calendar.MINUTE)) + " AM");
-        }
-
+        check_intent();
         create_toolbar();
         create_submit_button();
+    }
+
+    private void SeekBar() {
+        SeekBar Skb = (SeekBar) findViewById(R.id.seekBar);
+        Skb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     protected void create_toolbar() {
         getSupportActionBar().setTitle("Task Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    protected void check_intent() {
+        temp.setText(getIntent().getStringExtra("Title"));
     }
 
     private void create_submit_button() {
