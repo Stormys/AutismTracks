@@ -81,7 +81,7 @@ public class TaskSettings extends AppCompatActivity {
                 Intent i = new Intent();
                 setResult(RESULT_OK, i);
                 writeInternal();
-                //setAlarm();
+                setAlarm();
                 finish();
             }
         });
@@ -91,8 +91,8 @@ public class TaskSettings extends AppCompatActivity {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         // add alarm to alarm manager
         Intent myIntent = new Intent(TaskSettings.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(TaskSettings.this, 0, myIntent, 0);
-        alarmManager.set(AlarmManager.RTC, c.getTimeInMillis(), pendingIntent);
+        pendingIntent = PendingIntent.getActivity(TaskSettings.this, 0, myIntent, 0);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() , pendingIntent);
     }
     public void writeInternal() {
         TaskDatabase td = new TaskDatabase(this);
