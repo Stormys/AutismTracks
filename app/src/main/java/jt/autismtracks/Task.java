@@ -53,6 +53,10 @@ public class Task {
         return "No Date";
     }
 
+    public Date getDate_object() {
+        return date;
+    }
+
     public void setDone(int temp) {
         if (temp == 1)
             Done = true;

@@ -1,7 +1,9 @@
 package jt.autismtracks;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +26,8 @@ public class TaskSettings extends AppCompatActivity {
     private TextView tvTime;
     public static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private final static Calendar c = Calendar.getInstance();
-
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +64,19 @@ public class TaskSettings extends AppCompatActivity {
                 Intent i = new Intent();
                 setResult(RESULT_OK, i);
                 writeInternal();
+                setAlarm();
                 finish();
             }
         });
     }
 
+    private void setAlarm() {
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        // add alarm to alarm manager
+        Intent myIntent = new Intent(TaskSettings.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(TaskSettings.this, 0, myIntent, 0);
+        alarmManager.set(AlarmManager.RTC, c.getTimeInMillis(), pendingIntent);
+    }
     public void writeInternal() {
         TaskDatabase td = new TaskDatabase(this);
         td.open();

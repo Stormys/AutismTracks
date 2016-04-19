@@ -1,6 +1,8 @@
 package jt.autismtracks;
 
+import android.app.AlarmManager;
 import android.app.ListActivity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,8 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TimePicker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HomePage extends ListActivity {
 
@@ -18,6 +22,17 @@ public class HomePage extends ListActivity {
     private TaskAdapter adapter;
     private TaskDatabase td = new TaskDatabase(this);
 
+    //private TimePicker alarmTimePicker;
+//    private static HomePage inst;
+//
+//    public static HomePage instance() {
+//        return inst;
+//    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        inst = this;
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

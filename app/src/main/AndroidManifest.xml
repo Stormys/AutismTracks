@@ -52,6 +52,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HeadQuarter" />
         </activity>
+        <service
+            android:name=".AlarmService"
+            android:enabled="true" />
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>
