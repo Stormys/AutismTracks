@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,6 +52,8 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
 
         TextView DateItem = (TextView) convertView.findViewById(R.id.Date);
         DateItem.setText(objectItem.getDate());
+
+        ImageView ImageItem = (ImageView) convertView.findViewById(R.id.icon_task);
 
         final CheckBox CheckItem = (CheckBox) convertView.findViewById(R.id.checkBox);
         CheckItem.setChecked(objectItem.getDone());

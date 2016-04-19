@@ -17,6 +17,7 @@ public class Task {
     private Date date = null;
     private boolean Done = false;
     private long rowId;
+    private String src;
 
     // constructors
     public Task() {
@@ -78,5 +79,12 @@ public class Task {
 
     public long getRowId() {
         return rowId;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+    public String getSrc() {
+        return src;
     }
 }

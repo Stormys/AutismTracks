@@ -15,8 +15,9 @@ public class TaskTableContents {
         public static final String COLUMN_NAME_Date = "date";
         public static final String Column_Name_Done = "done";
         public static final String COLUMN_NAME_Points = "points";
-        public static final String COLUMN_NAME_Done_Date = "date";
-        public static final String COLUMN_NAME_Done_Date = "alarm";
+        public static final String COLUMN_NAME_Done_Date = "done_date";
+        public static final String COLUMN_NAME_Alarm = "alarm";
+        public static final String COLUMN_NAME_Icon_Src = "icon_src";
 
     }
 }
