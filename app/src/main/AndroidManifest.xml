@@ -5,10 +5,10 @@
     <application
         android:allowBackup="true"
         android:debuggable="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher2"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".HeadQuarter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

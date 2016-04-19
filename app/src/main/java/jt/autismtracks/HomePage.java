@@ -22,17 +22,6 @@ public class HomePage extends ListActivity {
     private TaskAdapter adapter;
     private TaskDatabase td = new TaskDatabase(this);
 
-    //private TimePicker alarmTimePicker;
-//    private static HomePage inst;
-//
-//    public static HomePage instance() {
-//        return inst;
-//    }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        inst = this;
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

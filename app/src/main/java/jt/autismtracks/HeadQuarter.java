@@ -38,6 +38,7 @@ public class HeadQuarter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head_quarter);
+        getSupportActionBar().setTitle("Julian Tuminaro");
         set_list_adapter();
         set_fab_clicker();
         set_task_list_clicker();
@@ -108,6 +109,14 @@ public class HeadQuarter extends AppCompatActivity {
                 }
             }
 
+        });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HeadQuarter.this, TaskSettings.class);
+                startActivity(intent);
+            }
         });
     }
 
