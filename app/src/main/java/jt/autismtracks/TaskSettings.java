@@ -18,7 +18,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TaskSettings extends AppCompatActivity {
 
@@ -88,11 +91,18 @@ public class TaskSettings extends AppCompatActivity {
     }
 
     private void setAlarm() {
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        // add alarm to alarm manager
-        Intent myIntent = new Intent(TaskSettings.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getActivity(TaskSettings.this, 0, myIntent, 0);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() , pendingIntent);
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
+        Date date;
+        try {
+            date = formatter.parse(tvDate.getText().toString() + " " +  tvTime.getText().toString());
+            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            // add alarm to alarm manager
+            Intent myIntent = new Intent(TaskSettings.this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getActivity(TaskSettings.this, 0, myIntent, 0);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime() , pendingIntent);
+        } catch (ParseException e) {
+
+        }
     }
     public void writeInternal() {
         TaskDatabase td = new TaskDatabase(this);
