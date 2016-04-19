@@ -8,11 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by julian on 4/16/16.
  */
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "TaskDatabase.db";
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String Date_TYPE = " long";
+    private static final String INT_TYPE = " int";
     private static final String Bool_Type = " boolean";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
@@ -20,7 +21,11 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                     TaskTableContents.TaskEntry._ID + " INTEGER PRIMARY KEY," +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Task + TEXT_TYPE + COMMA_SEP +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Date + Date_TYPE + COMMA_SEP +
-                    TaskTableContents.TaskEntry.Column_Name_Done + Bool_Type + " )";
+                    TaskTableContents.TaskEntry.Column_Name_Done + Bool_Type + COMMA_SEP +
+                    TaskTableContents.TaskEntry.COLUMN_NAME_Done_Date + Date_TYPE + COMMA_SEP +
+                    TaskTableContents.TaskEntry.COLUMN_NAME_Points + INT_TYPE + COMMA_SEP +
+                    TaskTableContents.TaskEntry.COLUMN_NAME_Alarm + Bool_Type + COMMA_SEP +
+                    TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src + TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TaskTableContents.TaskEntry.TABLE_NAME;

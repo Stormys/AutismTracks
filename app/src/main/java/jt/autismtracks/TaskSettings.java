@@ -40,6 +40,7 @@ public class TaskSettings extends AppCompatActivity {
         check_intent();
         create_toolbar();
         create_submit_button();
+        SeekBar();
     }
 
     private void SeekBar() {
@@ -47,7 +48,8 @@ public class TaskSettings extends AppCompatActivity {
         Skb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                TextView test = (TextView) findViewById(R.id.pointslabel);
+                test.setText(seekBar.getProgress() + "/100");
             }
 
             @Override
