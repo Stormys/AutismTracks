@@ -13,33 +13,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
-        android:id="@+id/NewTask"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Show Checked"
         android:id="@+id/show_checked"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@android:id/list"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_button_edges"
         android:layout_centerHorizontal="true" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@android:id/list"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:dividerHeight="10dp"/>
+        android:dividerHeight="10dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete All"
         android:id="@+id/delete_all"
-        android:layout_alignTop="@+id/NewTask"
+        android:layout_alignTop="@+id/show_checked"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

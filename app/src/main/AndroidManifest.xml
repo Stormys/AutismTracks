@@ -21,7 +21,7 @@
             android:label="@string/title_activity_task_settings"
             android:parentActivityName=".HomePage"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HomePage" />
@@ -33,12 +33,12 @@
 
         <activity
             android:name=".HomePage"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:parentActivityName=".HeadQuarter"/>
         <activity
             android:name=".Goals"
             android:label="@string/title_activity_goals"
             android:parentActivityName=".HeadQuarter"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HeadQuarter" />

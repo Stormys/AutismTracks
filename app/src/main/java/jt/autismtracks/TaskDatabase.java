@@ -44,6 +44,14 @@ public class TaskDatabase {
         }
     }
 
+    public void insertEmptyTask(String title) {
+        db = DBhelper.getWritableDatabase();
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Task,title);
+        initialValues.put(TaskTableContents.TaskEntry.Column_Name_Done,false);
+        db.insert(TaskTableContents.TaskEntry.TABLE_NAME, null, initialValues);
+    }
+
     public Cursor getTasks() {
         db = DBhelper.getReadableDatabase();
         Cursor c = db.rawQuery( "select * from " + TaskTableContents.TaskEntry.TABLE_NAME  + " WHERE " + TaskTableContents.TaskEntry.Column_Name_Done + " like 0" + " ORDER BY " + TaskTableContents.TaskEntry.COLUMN_NAME_Date  + " ASC", null );

@@ -50,9 +50,7 @@ public class TaskSettings extends AppCompatActivity {
     }
 
     protected void create_toolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("New Task");
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Task Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -64,7 +62,7 @@ public class TaskSettings extends AppCompatActivity {
                 Intent i = new Intent();
                 setResult(RESULT_OK, i);
                 writeInternal();
-                setAlarm();
+                //setAlarm();
                 finish();
             }
         });

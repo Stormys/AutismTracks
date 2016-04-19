@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -41,6 +44,7 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
 
         // object item based on the position
         final Task objectItem = obj.get(position);
+        final View v = convertView;
 
         TextView TitleItem = (TextView) convertView.findViewById(R.id.TitleName);
         TitleItem.setText(objectItem.getTitle());
@@ -56,8 +60,16 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
                 objectItem.setDone(CheckItem.isChecked());
                 TaskDatabase td = new TaskDatabase(mContext);
                 td.update_checked(objectItem.getRowId(),objectItem.getDone());
-                obj.remove(position);
-                notifyDataSetChanged();
+                v.animate()
+                        .setDuration(1000)
+                        .alpha(0)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                remove(objectItem);
+                                notifyDataSetChanged();
+                            }
+                        }).start();
             }
         });
         return convertView;

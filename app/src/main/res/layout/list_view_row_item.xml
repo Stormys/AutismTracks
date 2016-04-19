@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffff"
+    android:background="@drawable/rounded_edges"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="jt.autismtracks.HomePage">
 
@@ -23,13 +23,10 @@
         android:layout_height="wrap_content"
         android:text="Item name here..."
         android:textSize="10dp"
+        android:layout_marginRight="110dp"
+        android:layout_marginBottom="5dp"
         android:layout_below="@+id/TitleName"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/checkBox"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="false"
-        android:layout_marginRight="110dp" />
+        android:layout_toEndOf="@+id/checkBox" />
 
     <CheckBox
         android:layout_width="wrap_content"
