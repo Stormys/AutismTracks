@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -112,8 +113,11 @@ public class HomePage extends AppCompatActivity {
                 Intent b = new Intent(HomePage.this, TaskSettings.class);
                 TextView temp = (TextView) view.findViewById(R.id.TitleName);
                 TextView date = (TextView) view.findViewById(R.id.Date);
+                ToggleButton alarm = (ToggleButton) view.findViewById(R.id.alarmtoggle);
                 b.putExtra("Title",temp.getText().toString());
                 b.putExtra("Date",date.getText().toString());
+                b.putExtra("Alarm",values.get(i).getAlarm());
+                b.putExtra("Points",values.get(i).getPoints());
                 startActivity(b);
             }
         });
@@ -130,6 +134,8 @@ public class HomePage extends AppCompatActivity {
             if (results.getLong(2) != 0)
                 t.setDate(results.getLong(2));
             t.setDone(results.getInt(3));
+            t.setAlarm(results.getInt(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm)));
+            t.setPoints(results.getInt(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Points)));
             adapter.add(t);
             results.moveToNext();
         }

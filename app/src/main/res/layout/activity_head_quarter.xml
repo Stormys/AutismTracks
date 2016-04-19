@@ -19,7 +19,7 @@
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/medal"
         android:clickable="false" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/coins"
         android:clickable="false" />
 
     <TextView

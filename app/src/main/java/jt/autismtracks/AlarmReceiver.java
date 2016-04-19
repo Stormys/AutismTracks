@@ -66,7 +66,7 @@ public class AlarmReceiver extends AppCompatActivity {
         });
         //playSound(this, getAlarmUri());
         playSound(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-        sendNotification("TIME TO FUCK");
+        sendNotification("");
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();

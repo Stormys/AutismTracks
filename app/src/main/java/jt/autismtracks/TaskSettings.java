@@ -12,11 +12,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +30,9 @@ public class TaskSettings extends AppCompatActivity {
     private EditText temp;
     private TextView tvDate;
     private TextView tvTime;
+    private ToggleButton alarm;
+    private SeekBar Skb;
+    private TextView pointslabel;
     public static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private final static Calendar c = Calendar.getInstance();
     private AlarmManager alarmManager;
@@ -40,6 +45,9 @@ public class TaskSettings extends AppCompatActivity {
         temp = (EditText) findViewById(R.id.new_task);
         tvDate = (TextView) findViewById(R.id.date);
         tvTime = (TextView) findViewById(R.id.time);
+        alarm = (ToggleButton) findViewById(R.id.alarmtoggle);
+        Skb = (SeekBar) findViewById(R.id.seekBar);
+        pointslabel = (TextView) findViewById(R.id.pointslabel);
         check_intent();
         create_toolbar();
         create_submit_button();
@@ -47,12 +55,10 @@ public class TaskSettings extends AppCompatActivity {
     }
 
     private void SeekBar() {
-        SeekBar Skb = (SeekBar) findViewById(R.id.seekBar);
         Skb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                TextView test = (TextView) findViewById(R.id.pointslabel);
-                test.setText(seekBar.getProgress() + "/100");
+                pointslabel.setText(String.valueOf(seekBar.getProgress()) + "/100");
             }
 
             @Override
@@ -74,6 +80,10 @@ public class TaskSettings extends AppCompatActivity {
 
     protected void check_intent() {
         temp.setText(getIntent().getStringExtra("Title"));
+        tvDate.setText(getIntent().getStringExtra("Date"));
+        alarm.setChecked(getIntent().getBooleanExtra("Alarm",false));
+        Skb.setProgress(getIntent().getIntExtra("Points",50));
+        pointslabel.setText(getIntent().getIntExtra("Points",50) + "/100");
     }
 
     private void create_submit_button() {
@@ -108,7 +118,7 @@ public class TaskSettings extends AppCompatActivity {
     public void writeInternal() {
         TaskDatabase td = new TaskDatabase(this);
         td.open();
-        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString());
+        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString(),alarm.isChecked(),Skb.getProgress());
     }
 
     public void showDatePickerDialog(View v) {

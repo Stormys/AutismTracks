@@ -18,6 +18,8 @@ public class Task {
     private boolean Done = false;
     private long rowId;
     private String src;
+    private boolean alarm;
+    private int points;
 
     // constructors
     public Task() {
@@ -86,5 +88,22 @@ public class Task {
     }
     public String getSrc() {
         return src;
+    }
+
+    public void setAlarm(int test) {
+        if (test == 1)
+            alarm = true;
+        else
+            alarm = false;
+    }
+
+    public boolean getAlarm() { return alarm; }
+
+    public void setPoints(int test) {
+        points = test;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

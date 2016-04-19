@@ -28,7 +28,7 @@ public class TaskDatabase {
         db = DBhelper.getWritableDatabase();
     }
 
-    public void insertRecord(String title, String thedate) {
+    public void insertRecord(String title, String thedate, boolean alarm, int points) {
         db = DBhelper.getWritableDatabase();
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
         Date date;
@@ -38,6 +38,8 @@ public class TaskDatabase {
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Task, title);
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Date, date.getTime());
             initialValues.put(TaskTableContents.TaskEntry.Column_Name_Done,false);
+            initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm,alarm);
+            initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Points,points);
             db.insert(TaskTableContents.TaskEntry.TABLE_NAME, null, initialValues);
         } catch (ParseException e) {
             Log.e("Date Parsing", "Unable to parse inputted date to date object");
