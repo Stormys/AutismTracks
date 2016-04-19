@@ -33,7 +33,7 @@
 
         <activity
             android:name=".HomePage"
-            android:parentActivityName=".HeadQuarter"/>
+            android:parentActivityName=".HeadQuarter" />
         <activity
             android:name=".Goals"
             android:label="@string/title_activity_goals"
@@ -52,9 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HeadQuarter" />
         </activity>
-        <service android:name=".AlarmService"
-            android:enabled="true" />
-        <receiver android:name=".AlarmReceiver" />
         <activity
             android:name=".AppSettingsActivity"
             android:label="@string/title_activity_app_settings"
@@ -63,6 +60,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HeadQuarter" />
         </activity>
+        <activity android:name=".AlarmReceiver"></activity>
     </application>
 
 </manifest>

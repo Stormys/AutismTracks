@@ -1,46 +1,89 @@
 package jt.autismtracks;
 
-import android.app.Activity;
-import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.ToggleButton;
+import android.widget.Button;
 
-import java.util.Calendar;
+import java.io.IOException;
 
-/**
- * Created by chrx on 4/18/16.
- */
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+public class AlarmReceiver extends AppCompatActivity {
+    private MediaPlayer mMediaPlayer;
+    private NotificationManager alarmNotificationManager;
 
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_alarm_receiver);
+        Button stopAlarm = (Button) findViewById(R.id.stopAlarm);
+        stopAlarm.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent m) {
+                mMediaPlayer.stop();
+                finish();
+                return false;
+            }
+        });
+        //playSound(this, getAlarmUri());
+        playSound(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        sendNotification("Test");
+    }
 
-        //this will sound the alarm tone
-        //this will sound the alarm once, if you wish to
-        //raise alarm in loop continuously then use MediaPlayer and setLooping(true)
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alarmUri == null) {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+    private void playSound(Context context, Uri alert) {
+        mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(context, alert);
+            final AudioManager audioManager = (AudioManager) context
+                    .getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+                mMediaPlayer.prepare();
+                mMediaPlayer.start();
+            }
+        } catch (IOException e) {
+            System.out.println("Alarm not playing correctly.");
         }
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();
+    }
 
-        //this will send a notification message
-        ComponentName comp = new ComponentName(context.getPackageName(),
-                AlarmService.class.getName());
-        startWakefulService(context, (intent.setComponent(comp)));
-        setResultCode(Activity.RESULT_OK);
+    // get alarm sound if not get ringtone
+    private Uri getAlarmUri() {
+        Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if (alert == null) {
+            alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            if (alert == null) {
+                alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
+        }
+        return alert;
+    }
+
+    private void sendNotification(String msg) {
+        Log.d("AlarmService", "Preparing to send notification...: " + msg);
+        alarmNotificationManager = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, AlarmReceiver.class), 0);
+
+        NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
+                this).setContentTitle("Task").setSmallIcon(R.mipmap.launcher2)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                .setContentText(msg);
+
+
+        alamNotificationBuilder.setContentIntent(contentIntent);
+        alarmNotificationManager.notify(1, alamNotificationBuilder.build());
+        Log.d("AlarmService", "Notification sent.");
     }
 }
