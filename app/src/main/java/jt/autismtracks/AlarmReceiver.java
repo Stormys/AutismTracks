@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -29,6 +30,7 @@ import java.util.Calendar;
 public class AlarmReceiver extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private NotificationManager alarmNotificationManager;
+    private String _title;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -39,6 +41,12 @@ public class AlarmReceiver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_receiver);
+        _title = getIntent().getStringExtra("Title");
+        // set text to textview
+        TextView title = (TextView) findViewById(R.id.Title);
+        title.setText(_title);
+
+        // buttons
         Button stopAlarm = (Button) findViewById(R.id.yes_button);
         stopAlarm.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent m) {
@@ -56,9 +64,9 @@ public class AlarmReceiver extends AppCompatActivity {
                 return false;
             }
         });
-        playSound(this, getAlarmUri());
-        //playSound(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-        sendNotification("Test");
+        //playSound(this, getAlarmUri());
+        playSound(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        sendNotification("TIME TO FUCK");
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -66,6 +74,7 @@ public class AlarmReceiver extends AppCompatActivity {
 
     private void snooze_alarm() {
         Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("Title", _title);
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -113,7 +122,7 @@ public class AlarmReceiver extends AppCompatActivity {
                 new Intent(this, AlarmReceiver.class), 0);
 
         NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
-                this).setContentTitle("Task").setSmallIcon(R.mipmap.launcher2)
+                this).setContentTitle(_title).setSmallIcon(R.drawable.mini_shower_icon)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg);
 

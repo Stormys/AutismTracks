@@ -98,7 +98,8 @@ public class TaskSettings extends AppCompatActivity {
             alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             // add alarm to alarm manager
             Intent myIntent = new Intent(TaskSettings.this, AlarmReceiver.class);
-            pendingIntent = PendingIntent.getActivity(TaskSettings.this, 0, myIntent, 0);
+            myIntent.putExtra("Title", temp.getText().toString());
+            pendingIntent = PendingIntent.getActivity(TaskSettings.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime() , pendingIntent);
         } catch (ParseException e) {
 
