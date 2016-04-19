@@ -10,11 +10,20 @@
     tools:context="jt.autismtracks.AlarmReceiver">
 
     <Button
-        android:id="@+id/stopAlarm"
+        android:id="@+id/yes_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop Alarm"
-        android:layout_centerVertical="true"
+        android:text="Yes"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/no_button"
+        android:layout_marginTop="158dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:id="@+id/no_button"
+        android:layout_below="@+id/yes_button"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
