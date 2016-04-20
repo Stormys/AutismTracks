@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -39,7 +40,6 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         create_adapter();
         create_toolbar();
-        insert_delete_button();
         create_show_checked_button();
         item_clickers();
     }
@@ -69,22 +69,18 @@ public class HomePage extends AppCompatActivity {
 
 
     private void create_show_checked_button() {
-        Button button = (Button) findViewById(R.id.show_checked);
+        final ToggleButton button = (ToggleButton) findViewById(R.id.show_checked);
+        button.setText("Show Checked");
         button.setOnClickListener(new View.OnClickListener() {
          public void onClick(View v) {
-             cursor_to_tasks(td.getChecked());
+             if (button.isChecked()) {
+                 cursor_to_tasks(td.getChecked());
+                 button.setText("Hide Checked");
+             } else {
+                 button.setText("Show Checked");
+                 cursor_to_tasks(td.getTasks());
+             }
          }
-        });
-    }
-
-    private void insert_delete_button() {
-        Button button = (Button) findViewById(R.id.delete_all);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                values.clear();
-                adapter.notifyDataSetChanged();
-                td.delete_all();
-            }
         });
     }
 
@@ -115,7 +111,7 @@ public class HomePage extends AppCompatActivity {
                 TextView date = (TextView) view.findViewById(R.id.Date);
                 ToggleButton alarm = (ToggleButton) view.findViewById(R.id.alarmtoggle);
                 b.putExtra("Title",temp.getText().toString());
-                b.putExtra("Date",date.getText().toString());
+                b.putExtra("Date",values.get(i).getDate().toString());
                 b.putExtra("Alarm",values.get(i).getAlarm());
                 b.putExtra("Points",values.get(i).getPoints());
                 startActivity(b);
@@ -142,22 +138,21 @@ public class HomePage extends AppCompatActivity {
     }
 
     protected void showInputDialog() {
-
-        // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(HomePage.this);
-        View promptView = layoutInflater.inflate(R.layout.new_task, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomePage.this);
+        View promptView = layoutInflater.inflate(R.layout.new_task, null,false);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.new_task_et);
-        // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (!editText.getText().toString().equals("")) {
                             Task t = new Task();
                             t.setTitle(editText.getText().toString());
-                            adapter.add(t);
+                            t.setPoints(50);
+                            values.add(0,t);
+                            adapter.notifyDataSetChanged();
                             td.insertEmptyTask(editText.getText().toString());
                         }
                     }
@@ -168,8 +163,6 @@ public class HomePage extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         });
-
-        // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }

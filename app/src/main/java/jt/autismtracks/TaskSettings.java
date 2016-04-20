@@ -5,16 +5,26 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -33,6 +43,7 @@ public class TaskSettings extends AppCompatActivity {
     private ToggleButton alarm;
     private SeekBar Skb;
     private TextView pointslabel;
+    private ImageButton ib;
     public static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private final static Calendar c = Calendar.getInstance();
     private AlarmManager alarmManager;
@@ -50,8 +61,19 @@ public class TaskSettings extends AppCompatActivity {
         pointslabel = (TextView) findViewById(R.id.pointslabel);
         check_intent();
         create_toolbar();
-        create_submit_button();
+        create_icon_button();
         SeekBar();
+    }
+
+    private void create_icon_button() {
+        ib = (ImageButton) findViewById(R.id.icon_button);
+        ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new IconPickerFragment();
+                newFragment.show(getSupportFragmentManager(),"TimePicker");
+            }
+        });
     }
 
     private void SeekBar() {
@@ -79,26 +101,29 @@ public class TaskSettings extends AppCompatActivity {
     }
 
     protected void check_intent() {
-        temp.setText(getIntent().getStringExtra("Title"));
-        tvDate.setText(getIntent().getStringExtra("Date"));
+        if (getIntent().getStringExtra("Title") != null)
+            temp.append(getIntent().getStringExtra("Title"));
+        if (getIntent().getStringExtra("Date") != null) {
+            tvDate.setText(getIntent().getStringExtra("Date"));
+        }
         alarm.setChecked(getIntent().getBooleanExtra("Alarm",false));
         Skb.setProgress(getIntent().getIntExtra("Points",50));
         pointslabel.setText(getIntent().getIntExtra("Points",50) + "/100");
     }
 
-    private void create_submit_button() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                setResult(RESULT_OK, i);
-                writeInternal();
-                setAlarm();
-                finish();
-            }
-        });
-    }
+//    private void create_submit_button() {
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent();
+//                setResult(RESULT_OK, i);
+//                writeInternal();
+//                setAlarm();
+//                finish();
+//            }
+//        });
+//    }
 
     private void setAlarm() {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
@@ -173,5 +198,38 @@ public class TaskSettings extends AppCompatActivity {
             }
         }
     }
+    public static class IconPickerFragment extends DialogFragment {
 
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.icon_picker, container,
+                    false);
+            getDialog().setTitle("Icon Chooser");
+            final GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
+            gridview.setAdapter(new ImageAdapter(getActivity()));
+
+            Button b1 = (Button) rootView.findViewById(R.id.button2);
+            Button b2 = (Button) rootView.findViewById(R.id.button3);
+
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dismiss();
+                }
+            });
+
+            b2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ImageButton ib = (ImageButton) getActivity().findViewById(R.id.icon_button);
+                    ImageAdapter test = (ImageAdapter) gridview.getAdapter();
+                    ib.setImageResource(test.mThumbIds[test.p]);
+                    dismiss();
+                }
+            });
+
+            return rootView;
+        }
+    }
 }

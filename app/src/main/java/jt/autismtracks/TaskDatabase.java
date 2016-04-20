@@ -53,7 +53,7 @@ public class TaskDatabase {
         initialValues.put(TaskTableContents.TaskEntry.Column_Name_Done,false);
         initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm,false);
         initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Points,50);
-        initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src,"@drawable/mini_shower_icon");
+        initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src,"@drawable/document");
         db.insert(TaskTableContents.TaskEntry.TABLE_NAME, null, initialValues);
     }
 

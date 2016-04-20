@@ -22,7 +22,6 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                     TaskTableContents.TaskEntry.COLUMN_NAME_Task + TEXT_TYPE + COMMA_SEP +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Date + Date_TYPE + COMMA_SEP +
                     TaskTableContents.TaskEntry.Column_Name_Done + Bool_Type + COMMA_SEP +
-                    TaskTableContents.TaskEntry.COLUMN_NAME_Done_Date + Date_TYPE + COMMA_SEP +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Points + INT_TYPE + COMMA_SEP +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Alarm + Bool_Type + COMMA_SEP +
                     TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src + TEXT_TYPE +" )";

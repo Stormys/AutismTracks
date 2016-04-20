@@ -7,17 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
     android:background="@drawable/blur4720"
     tools:context="jt.autismtracks.HomePage">
 
-    <Button
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Checked"
         android:id="@+id/show_checked"
-        android:layout_below="@android:id/list"
-        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_button_edges"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <ListView
@@ -26,14 +26,8 @@
         android:id="@android:id/list"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:dividerHeight="10dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete All"
-        android:id="@+id/delete_all"
-        android:layout_alignTop="@+id/show_checked"
-        android:layout_alignParentStart="true" />
+        android:dividerHeight="10dp"
+        android:layout_above="@+id/show_checked"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>
