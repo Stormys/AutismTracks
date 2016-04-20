@@ -115,6 +115,7 @@ public class HeadQuarter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HeadQuarter.this, TaskSettings.class);
+                intent.putExtra("from","head");
                 startActivity(intent);
             }
         });

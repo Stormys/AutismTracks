@@ -2,7 +2,8 @@ package jt.autismtracks;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
+import android.graphics.Paint;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
         DateItem.setText(objectItem.getDate());
 
         ImageView ImageItem = (ImageView) convertView.findViewById(R.id.icon_task);
+        ImageItem.setImageResource(mContext.getResources().getIdentifier(objectItem.getSrc(),null, "jt.autismtracks"));
 
         final CheckBox CheckItem = (CheckBox) convertView.findViewById(R.id.checkBox);
         CheckItem.setChecked(objectItem.getDone());
@@ -63,16 +65,14 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
                 objectItem.setDone(CheckItem.isChecked());
                 TaskDatabase td = new TaskDatabase(mContext);
                 td.update_checked(objectItem.getRowId(),objectItem.getDone());
-                v.animate()
-                        .setDuration(1000)
-                        .alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                remove(objectItem);
-                                notifyDataSetChanged();
-                            }
-                        }).start();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        remove(objectItem);
+                        notifyDataSetChanged();
+                    }
+                }, 600);
             }
         });
         return convertView;

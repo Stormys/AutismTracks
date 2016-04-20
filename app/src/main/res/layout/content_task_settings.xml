@@ -115,5 +115,15 @@
         android:layout_below="@+id/seekBar"
         android:layout_alignEnd="@+id/pointstitle" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@drawable/document"
+        android:id="@+id/hidden"
+        android:layout_below="@+id/alarmtv"
+        android:layout_alignStart="@+id/pointstitle"
+        android:layout_marginTop="43dp"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>

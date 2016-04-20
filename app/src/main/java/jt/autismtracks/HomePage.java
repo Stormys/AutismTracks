@@ -114,6 +114,8 @@ public class HomePage extends AppCompatActivity {
                 b.putExtra("Date",values.get(i).getDate().toString());
                 b.putExtra("Alarm",values.get(i).getAlarm());
                 b.putExtra("Points",values.get(i).getPoints());
+                b.putExtra("Src",values.get(i).getSrc());
+                b.putExtra("from","home");
                 startActivity(b);
             }
         });
@@ -132,6 +134,7 @@ public class HomePage extends AppCompatActivity {
             t.setDone(results.getInt(3));
             t.setAlarm(results.getInt(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm)));
             t.setPoints(results.getInt(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Points)));
+            t.setSrc(results.getString(results.getColumnIndex(TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src)));
             adapter.add(t);
             results.moveToNext();
         }
@@ -151,6 +154,7 @@ public class HomePage extends AppCompatActivity {
                             Task t = new Task();
                             t.setTitle(editText.getText().toString());
                             t.setPoints(50);
+                            t.setSrc("@drawable/document");
                             values.add(0,t);
                             adapter.notifyDataSetChanged();
                             td.insertEmptyTask(editText.getText().toString());

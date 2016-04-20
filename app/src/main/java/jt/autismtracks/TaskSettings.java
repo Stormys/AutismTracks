@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -44,6 +45,7 @@ public class TaskSettings extends AppCompatActivity {
     private SeekBar Skb;
     private TextView pointslabel;
     private ImageButton ib;
+    private TextView saveddraw;
     public static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private final static Calendar c = Calendar.getInstance();
     private AlarmManager alarmManager;
@@ -56,6 +58,8 @@ public class TaskSettings extends AppCompatActivity {
         temp = (EditText) findViewById(R.id.new_task);
         tvDate = (TextView) findViewById(R.id.date);
         tvTime = (TextView) findViewById(R.id.time);
+        saveddraw = (TextView) findViewById(R.id.hidden);
+        ib = (ImageButton) findViewById(R.id.icon_button);
         alarm = (ToggleButton) findViewById(R.id.alarmtoggle);
         Skb = (SeekBar) findViewById(R.id.seekBar);
         pointslabel = (TextView) findViewById(R.id.pointslabel);
@@ -105,25 +109,30 @@ public class TaskSettings extends AppCompatActivity {
             temp.append(getIntent().getStringExtra("Title"));
         if (getIntent().getStringExtra("Date") != null) {
             tvDate.setText(getIntent().getStringExtra("Date"));
+        } if (getIntent().getStringExtra("Src") != null) {
+            ib.setImageResource(getResources().getIdentifier(getIntent().getStringExtra("Src"),null, "jt.autismtracks"));
         }
         alarm.setChecked(getIntent().getBooleanExtra("Alarm",false));
         Skb.setProgress(getIntent().getIntExtra("Points",50));
         pointslabel.setText(getIntent().getIntExtra("Points",50) + "/100");
+
     }
 
-//    private void create_submit_button() {
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent();
-//                setResult(RESULT_OK, i);
-//                writeInternal();
-//                setAlarm();
-//                finish();
-//            }
-//        });
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            Log.e("What",String.valueOf(ib.getResources()));
+            if (getIntent().getStringExtra("from").equals("head"))
+                writeInternal();
+            else {
+                //edit it instead
+            }
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void setAlarm() {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
@@ -143,7 +152,7 @@ public class TaskSettings extends AppCompatActivity {
     public void writeInternal() {
         TaskDatabase td = new TaskDatabase(this);
         td.open();
-        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString(),alarm.isChecked(),Skb.getProgress());
+        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString(),alarm.isChecked(),Skb.getProgress(),saveddraw.getText().toString());
     }
 
     public void showDatePickerDialog(View v) {
@@ -205,6 +214,7 @@ public class TaskSettings extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.icon_picker, container,
                     false);
+            final TextView savedDraw = (TextView) getActivity().findViewById(R.id.hidden);
             getDialog().setTitle("Icon Chooser");
             final GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
             gridview.setAdapter(new ImageAdapter(getActivity()));
@@ -225,6 +235,7 @@ public class TaskSettings extends AppCompatActivity {
                     ImageButton ib = (ImageButton) getActivity().findViewById(R.id.icon_button);
                     ImageAdapter test = (ImageAdapter) gridview.getAdapter();
                     ib.setImageResource(test.mThumbIds[test.p]);
+                    savedDraw.setText(test.mThumbIds[test.p].toString());
                     dismiss();
                 }
             });
