@@ -49,7 +49,7 @@
         android:text="New ToggleButton"
         android:id="@+id/alarmtoggle"
         android:checked="false"
-        android:layout_below="@+id/time"
+        android:layout_alignBottom="@+id/imageButton"
         android:layout_alignStart="@+id/pointslabel" />
 
     <Button
@@ -65,12 +65,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_below="@+id/alarmtoggle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
         android:max="100"
         android:progress="50"
-        android:indeterminate="false" />
+        android:indeterminate="false"
+        android:layout_below="@+id/time"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,9 +91,8 @@
         android:textAlignment="viewEnd"
         android:textSize="25dp"
         android:gravity="center"
-        android:layout_below="@+id/time"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/alarmtoggle"
+        android:layout_alignBottom="@+id/imageButton"
+        android:layout_alignTop="@+id/alarmtoggle"
         android:layout_toStartOf="@+id/alarmtoggle" />
 
     <TextView
