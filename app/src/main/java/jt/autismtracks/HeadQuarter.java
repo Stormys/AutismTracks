@@ -3,24 +3,17 @@ package jt.autismtracks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.widget.ListViewCompat;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -67,7 +60,6 @@ public class HeadQuarter extends AppCompatActivity {
     private void set_list_adapter() {
         lv = (ListView) findViewById(R.id.listView);
         items.add("Task List");
-        items.add("Goals");
         items.add("Rewards");
 
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, items);
@@ -128,9 +120,6 @@ public class HeadQuarter extends AppCompatActivity {
                     Intent intent = new Intent(HeadQuarter.this, HomePage.class);
                     startActivity(intent);
                 } else if (position == 1) {
-                    Intent intent = new Intent(HeadQuarter.this, Goals.class);
-                    startActivity(intent);
-                } else if (position == 2) {
                     Intent intent = new Intent(HeadQuarter.this, Rewards.class);
                     startActivity(intent);
                 }

@@ -20,8 +20,7 @@
             android:name=".TaskSettings"
             android:label="@string/title_activity_task_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -31,19 +30,10 @@
             android:name=".HomePage"
             android:parentActivityName=".HeadQuarter" />
         <activity
-            android:name=".Goals"
-            android:label="@string/title_activity_goals"
-            android:parentActivityName=".HeadQuarter"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="jt.autismtracks.HeadQuarter" />
-        </activity>
-        <activity
             android:name=".Rewards"
             android:label="@string/title_activity_rewards"
             android:parentActivityName=".HeadQuarter"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HeadQuarter" />
@@ -56,7 +46,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jt.autismtracks.HeadQuarter" />
         </activity>
-        <activity android:name=".AlarmReceiver"></activity>
+        <activity android:name=".AlarmReceiver" />
+        <activity
+            android:name=".RewardSettings"
+            android:label="@string/rewardsettings"
+            android:parentActivityName=".Rewards"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Rewards" />
+        </activity>
     </application>
 
 </manifest>

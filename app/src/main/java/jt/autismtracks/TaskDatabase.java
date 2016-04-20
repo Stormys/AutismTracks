@@ -50,6 +50,15 @@ public class TaskDatabase {
         }
     }
 
+    public void insertGoal(String title, int points, String draw) {
+        db = DBhelper.getWritableDatabase();
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(RewardsTableContents.RewardsEntry.COLUMN_NAME_Reward, title);
+        initialValues.put(RewardsTableContents.RewardsEntry.COLUMN_NAME_POINTS, points);
+        initialValues.put(RewardsTableContents.RewardsEntry.COLUMN_NAME_ICON, draw);
+        db.insert(RewardsTableContents.RewardsEntry.TABLE_NAME, null, initialValues);
+    }
+
     public void insertEmptyTask(String title) {
         db = DBhelper.getWritableDatabase();
         ContentValues initialValues = new ContentValues();
@@ -64,6 +73,12 @@ public class TaskDatabase {
     public Cursor getTasks() {
         db = DBhelper.getReadableDatabase();
         Cursor c = db.rawQuery( "select * from " + TaskTableContents.TaskEntry.TABLE_NAME  + " WHERE " + TaskTableContents.TaskEntry.Column_Name_Done + " like 0" + " ORDER BY " + TaskTableContents.TaskEntry.COLUMN_NAME_Date  + " ASC", null );
+        return c;
+    }
+
+    public Cursor getGoals() {
+        db = DBhelper.getReadableDatabase();
+        Cursor c = db.rawQuery( "select * from" + RewardsTableContents.RewardsEntry.TABLE_NAME, null);
         return c;
     }
 
@@ -88,6 +103,20 @@ public class TaskDatabase {
                 contentValues,
                 selection,
                 selectionArgs);
+    }
+
+    public void update_goals(long rowID, String title, int points, String draw) {
+        db = DBhelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(RewardsTableContents.RewardsEntry.COLUMN_NAME_Reward, title);
+        contentValues.put(RewardsTableContents.RewardsEntry.COLUMN_NAME_POINTS, points);
+        contentValues.put(RewardsTableContents.RewardsEntry.COLUMN_NAME_ICON, draw);
+        String selction = RewardsTableContents.RewardsEntry._ID + " Like ?";
+        String[] selctionArgs = { String.valueOf(rowID)};
+        db.update(RewardsTableContents.RewardsEntry.TABLE_NAME,
+                contentValues,
+                selction,
+                selctionArgs);
     }
 
     public void update_all(long rowId, String title,String draw,int points,boolean alarm, String thedate) {
@@ -117,6 +146,10 @@ public class TaskDatabase {
 
     public void delete(long id) {
         db.delete(TaskTableContents.TaskEntry.TABLE_NAME, TaskTableContents.TaskEntry._ID + "=" + id, null);
+    }
+
+    public void delete_goal(long id) {
+        db.delete(RewardsTableContents.RewardsEntry.TABLE_NAME, RewardsTableContents.RewardsEntry._ID + "=" + id, null);
     }
 
 }
