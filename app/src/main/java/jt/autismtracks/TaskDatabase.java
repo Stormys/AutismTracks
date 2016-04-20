@@ -33,10 +33,13 @@ public class TaskDatabase {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
         Date date;
         try {
-            date = formatter.parse(thedate);
             ContentValues initialValues = new ContentValues();
+            if (thedate != null) {
+                date = formatter.parse(thedate);
+                initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Date, date.getTime());
+            }
+
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Task, title);
-            initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Date, date.getTime());
             initialValues.put(TaskTableContents.TaskEntry.Column_Name_Done,false);
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm,alarm);
             initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Points,points);
@@ -86,5 +89,35 @@ public class TaskDatabase {
                 selection,
                 selectionArgs);
     }
+
+    public void update_all(long rowId, String title,String draw,int points,boolean alarm, String thedate) {
+        db = DBhelper.getWritableDatabase();
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy h:m a");
+        Date date;
+        try {
+            ContentValues contentValues = new ContentValues();
+            if (thedate != null) {
+                date = formatter.parse(thedate);
+                contentValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Date, date.getTime());
+            }
+            contentValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Task,title);
+            contentValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src,draw);
+            contentValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Points,points);
+            contentValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm,alarm);
+            String selection = TaskTableContents.TaskEntry._ID + " Like ?";
+            String[] selectionArgs = { String.valueOf(rowId)};
+            db.update(TaskTableContents.TaskEntry.TABLE_NAME,
+                    contentValues,
+                    selection,
+                    selectionArgs);
+        } catch (ParseException e) {
+
+        }
+    }
+
+    public void delete(long id) {
+        db.delete(TaskTableContents.TaskEntry.TABLE_NAME, TaskTableContents.TaskEntry._ID + "=" + id, null);
+    }
+
 }
 

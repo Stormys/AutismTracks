@@ -66,6 +66,7 @@ public class TaskSettings extends AppCompatActivity {
         check_intent();
         create_toolbar();
         create_icon_button();
+        create_delete_button();
         SeekBar();
     }
 
@@ -78,6 +79,27 @@ public class TaskSettings extends AppCompatActivity {
                 newFragment.show(getSupportFragmentManager(),"TimePicker");
             }
         });
+    }
+
+    private void create_delete_button() {
+        Button test = (Button) findViewById(R.id.delete);
+        final long test2 = getIntent().getLongExtra("id",-1);
+        if ( test2 == -1) {
+            test.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            test.setEnabled(false);
+        } else {
+            test.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TaskDatabase td = new TaskDatabase(getApplicationContext());
+                    td.open();
+                    td.delete(test2);
+                    Intent i = new Intent();
+                    setResult(2,i);
+                    finish();
+                }
+            });
+        }
     }
 
     private void SeekBar() {
@@ -109,8 +131,11 @@ public class TaskSettings extends AppCompatActivity {
             temp.append(getIntent().getStringExtra("Title"));
         if (getIntent().getStringExtra("Date") != null) {
             tvDate.setText(getIntent().getStringExtra("Date"));
+        } if (getIntent().getStringExtra("Time") != null) {
+            tvTime.setText(getIntent().getStringExtra("Time"));
         } if (getIntent().getStringExtra("Src") != null) {
             ib.setImageResource(getResources().getIdentifier(getIntent().getStringExtra("Src"),null, "jt.autismtracks"));
+            saveddraw.setText(getIntent().getStringExtra("Src"));
         }
         alarm.setChecked(getIntent().getBooleanExtra("Alarm",false));
         Skb.setProgress(getIntent().getIntExtra("Points",50));
@@ -122,11 +147,12 @@ public class TaskSettings extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            Log.e("What",String.valueOf(ib.getResources()));
             if (getIntent().getStringExtra("from").equals("head"))
                 writeInternal();
             else {
-                //edit it instead
+                Intent i = new Intent();
+                updateInternal();
+                setResult(2,i);
             }
             finish(); // close this activity and return to preview activity (if there is any)
         }
@@ -152,7 +178,19 @@ public class TaskSettings extends AppCompatActivity {
     public void writeInternal() {
         TaskDatabase td = new TaskDatabase(this);
         td.open();
-        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), tvDate.getText().toString() + " " +  tvTime.getText().toString(),alarm.isChecked(),Skb.getProgress(),saveddraw.getText().toString());
+        td.insertRecord((!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"), (!(tvDate.getText().toString().equals("No Date Selected") | tvTime.getText().toString().equals("No Time Selected")) ? tvDate.getText().toString() + " " +  tvTime.getText().toString() : null),alarm.isChecked(),Skb.getProgress(),saveddraw.getText().toString());
+        if (alarm.isChecked()) {
+            setAlarm();
+        }
+    }
+
+    public void updateInternal() {
+        TaskDatabase td = new TaskDatabase(this);
+        td.open();
+        td.update_all(getIntent().getLongExtra("id",0),(!temp.getText().toString().equals("") ? temp.getText().toString() : "New Task"),saveddraw.getText().toString(),Skb.getProgress(),alarm.isChecked(),(!(tvDate.getText().toString().equals("No Date Selected") | tvTime.getText().toString().equals("No Time Selected")) ? tvDate.getText().toString() + " " +  tvTime.getText().toString() : null));
+        if (alarm.isChecked() & !getIntent().getBooleanExtra("Alarm",false)) {
+            setAlarm();
+        }
     }
 
     public void showDatePickerDialog(View v) {

@@ -23,9 +23,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class HomePage extends AppCompatActivity {
 
@@ -92,9 +94,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestedCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
-            write_list();
-        }
+        write_list();
     }
 
     private void write_list() {
@@ -106,17 +106,24 @@ public class HomePage extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
+                DateFormat df1 = new SimpleDateFormat("h:mm a");
+                Date temp1 = values.get(i).getDate_object();
                 Intent b = new Intent(HomePage.this, TaskSettings.class);
                 TextView temp = (TextView) view.findViewById(R.id.TitleName);
                 TextView date = (TextView) view.findViewById(R.id.Date);
                 ToggleButton alarm = (ToggleButton) view.findViewById(R.id.alarmtoggle);
                 b.putExtra("Title",temp.getText().toString());
-                b.putExtra("Date",values.get(i).getDate().toString());
+                if (temp1 != null) {
+                    b.putExtra("Date", df.format(temp1));
+                    b.putExtra("Time",df1.format(temp1));
+                }
                 b.putExtra("Alarm",values.get(i).getAlarm());
                 b.putExtra("Points",values.get(i).getPoints());
                 b.putExtra("Src",values.get(i).getSrc());
                 b.putExtra("from","home");
-                startActivity(b);
+                b.putExtra("id",values.get(i).getRowId());
+                startActivityForResult(b,1);
             }
         });
     }

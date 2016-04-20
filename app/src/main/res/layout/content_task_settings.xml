@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Delete Task"
         android:background="#d64444"
-        android:id="@+id/button"
+        android:id="@+id/delete"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
