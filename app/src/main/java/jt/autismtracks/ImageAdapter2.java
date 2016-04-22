@@ -18,6 +18,9 @@ import java.util.ArrayList;
 public class ImageAdapter2 extends BaseAdapter {
     private Context mContext;
     public Integer[] mThumbIds2 = {R.drawable.home_agenda,R.drawable.home_trophy, R.drawable  .fb,R.drawable.twitter,R.drawable.instagram};
+    private float scale;
+    private int pixels;
+    private final int dps = 90;
 
     public ArrayList<Bitmap> mThumbIds;
     public int p = 0;
@@ -26,8 +29,10 @@ public class ImageAdapter2 extends BaseAdapter {
         mContext = c;
         mThumbIds = new ArrayList<Bitmap>();
         for (Integer v : mThumbIds2) {
-            mThumbIds.add(decodeSampledBitmapFromResource(mContext.getResources(), v, 150, 150));
+            mThumbIds.add(decodeSampledBitmapFromResource(mContext.getResources(), v, 100, 100));
         }
+        scale = mContext.getResources().getDisplayMetrics().density;
+        pixels = (int) (dps * scale + 0.5f);
     }
 
     public long getItemId(int position) {
@@ -47,7 +52,8 @@ public class ImageAdapter2 extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(400, 400));
+
+            imageView.setLayoutParams(new GridView.LayoutParams(pixels, pixels));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
 
