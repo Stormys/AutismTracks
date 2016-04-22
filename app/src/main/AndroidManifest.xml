@@ -51,7 +51,7 @@
             android:name=".RewardSettings"
             android:label="@string/rewardsettings"
             android:parentActivityName=".Rewards"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Rewards" />

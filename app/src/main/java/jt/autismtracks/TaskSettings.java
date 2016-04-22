@@ -68,7 +68,7 @@ public class TaskSettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DialogFragment newFragment = new IconPickerFragment();
-                newFragment.show(getSupportFragmentManager(),"TimePicker");
+                newFragment.show(getSupportFragmentManager(),"IconPicker");
             }
         });
     }
@@ -77,7 +77,7 @@ public class TaskSettings extends AppCompatActivity {
         Button test = (Button) findViewById(R.id.delete);
         final long test2 = getIntent().getLongExtra("id",-1);
         if ( test2 == -1) {
-            test.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            test.setBackgroundResource(R.drawable.delete_grey);
             test.setEnabled(false);
         } else {
             test.setOnClickListener(new View.OnClickListener() {
@@ -196,8 +196,7 @@ public class TaskSettings extends AppCompatActivity {
     }
 
 
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
+    public static class DatePickerFragment extends DialogFragment {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -207,36 +206,38 @@ public class TaskSettings extends AppCompatActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return new DatePickerDialog(getActivity(),R.style.DialogTheme,new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int day) {
+                    TextView tvDate = (TextView) getActivity().findViewById(R.id.date);
+                    tvDate.setText(MONTHS[month] + " " + String.valueOf(day) + ", " + String.valueOf(year));
+                }
+            },year,month,day);
         }
 
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            TextView tvDate = (TextView) getActivity().findViewById(R.id.date);
-            tvDate.setText(MONTHS[month] + " " + String.valueOf(day) + ", " + String.valueOf(year));
-        }
     }
 
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
+    public static class TimePickerFragment extends DialogFragment {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int day = c.get(Calendar.MINUTE);
 
-            return new TimePickerDialog(getActivity(),this,hour,day,false);
-        }
-
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-            TextView tvTime = (TextView) getActivity().findViewById(R.id.time);
-            if (hour > 12) {
-                tvTime.setText(hour % 12 + ":" + String.format("%02d",minute) + " PM");
-            } else {
-                tvTime.setText(hour + ":" + String.format("%02d",minute) + " AM");
-            }
+            return new TimePickerDialog(getActivity(),R.style.DialogTheme,new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                    TextView tvTime = (TextView) getActivity().findViewById(R.id.time);
+                    if (hour > 12) {
+                        tvTime.setText(hour % 12 + ":" + String.format("%02d", minute) + " PM");
+                    } else {
+                        tvTime.setText(hour + ":" + String.format("%02d", minute) + " AM");
+                    }
+                }
+            },hour,day,false);
         }
     }
+
     public static class IconPickerFragment extends DialogFragment {
 
         @Override
@@ -264,8 +265,8 @@ public class TaskSettings extends AppCompatActivity {
                 public void onClick(View view) {
                     ImageButton ib = (ImageButton) getActivity().findViewById(R.id.icon_button);
                     ImageAdapter test = (ImageAdapter) gridview.getAdapter();
-                    ib.setImageResource(test.mThumbIds[test.p]);
-                    savedDraw.setText(test.mThumbIds[test.p].toString());
+                    ib.setImageResource(test.mThumbIds2[test.p]);
+                    savedDraw.setText(test.mThumbIds2[test.p].toString());
                     dismiss();
                 }
             });

@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#804678</color>
     <color name="pressed_color">#4d90fe</color>
     <color name="default_color">#ffffff</color>
-    <color name="delete">#be879da4</color>
+    <color name="nick">#1E1B1F</color>
+    <color name="nickfav">#804678</color>
 </resources>

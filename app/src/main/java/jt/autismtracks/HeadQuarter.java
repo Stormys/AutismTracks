@@ -1,6 +1,10 @@
 package jt.autismtracks;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ public class HeadQuarter extends AppCompatActivity {
     private TextView add_task_tv, add_goals_tv;
     private ListView lv;
     private boolean isClicked = false;
+    private RelativeLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,11 @@ public class HeadQuarter extends AppCompatActivity {
         set_list_adapter();
         set_fab_clicker();
         set_task_list_clicker();
+        layout = (RelativeLayout) findViewById(R.id.layout);
+        layout.setBackground(Background.create_background(this));
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

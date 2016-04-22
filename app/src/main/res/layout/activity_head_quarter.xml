@@ -19,7 +19,7 @@
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@drawable/medal"
+        android:src="@drawable/agenda"
         android:clickable="false" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@drawable/coins"
+        android:src="@drawable/trophy"
         android:clickable="false" />
 
     <TextView

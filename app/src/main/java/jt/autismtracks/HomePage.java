@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
@@ -35,6 +36,7 @@ public class HomePage extends AppCompatActivity {
     private TaskAdapter adapter;
     private TaskDatabase td = new TaskDatabase(this);
     private ListView lv;
+    private RelativeLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class HomePage extends AppCompatActivity {
         create_toolbar();
         create_show_checked_button();
         item_clickers();
+        layout = (RelativeLayout) findViewById(R.id.layout);
+        layout.setBackground(Background.create_background(this));
     }
 
     private void create_toolbar() {
@@ -161,7 +165,7 @@ public class HomePage extends AppCompatActivity {
                             Task t = new Task();
                             t.setTitle(editText.getText().toString());
                             t.setPoints(50);
-                            t.setSrc("@drawable/document");
+                            t.setSrc("@drawable/agenda");
                             values.add(0,t);
                             adapter.notifyDataSetChanged();
                             td.insertEmptyTask(editText.getText().toString());
@@ -174,7 +178,14 @@ public class HomePage extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         });
-        AlertDialog alert = alertDialogBuilder.create();
+        final AlertDialog alert = alertDialogBuilder.create();
+        alert.setOnShowListener( new DialogInterface.OnShowListener() {
+                                     @Override
+                                     public void onShow(DialogInterface arg0) {
+                                         alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.nickfav));
+                                         alert.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.nickfav));
+                                     }
+                                 });
         alert.show();
     }
 }

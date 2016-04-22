@@ -22,7 +22,6 @@ public class Rewards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewards);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         create_adapter();
     }
 
