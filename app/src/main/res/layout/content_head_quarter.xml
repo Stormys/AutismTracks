@@ -12,10 +12,13 @@
     tools:context="jt.autismtracks.HeadQuarter"
     tools:showIn="@layout/activity_head_quarter">
 
-    <ListView
+    <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
+        android:numColumns="2"
+        android:gravity="center"
+        android:verticalSpacing="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 

@@ -1,10 +1,12 @@
 package jt.autismtracks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,22 +18,25 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class HeadQuarter extends AppCompatActivity {
 
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> items = new ArrayList<String>();
     private FloatingActionButton fab, fab1, fab2;
     private Animation rotate_forward, rotate_backwards, fab_open, fab_close;
     private TextView add_task_tv, add_goals_tv;
-    private ListView lv;
+    private GridView lv;
     private boolean isClicked = false;
-    private RelativeLayout layout;
+    private TaskDatabase td = new TaskDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +46,7 @@ public class HeadQuarter extends AppCompatActivity {
         set_list_adapter();
         set_fab_clicker();
         set_task_list_clicker();
-        layout = (RelativeLayout) findViewById(R.id.layout);
-        layout.setBackground(Background.create_background(this));
+        td.check();
     }
 
 
@@ -68,12 +72,9 @@ public class HeadQuarter extends AppCompatActivity {
     }
 
     private void set_list_adapter() {
-        lv = (ListView) findViewById(R.id.listView);
-        items.add("Task List");
-        items.add("Rewards");
+        lv = (GridView) findViewById(R.id.listView);
 
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, items);
-        lv.setAdapter(adapter);
+        lv.setAdapter(new ImageAdapter2(this));
     }
 
     private void set_fab_clicker() {
@@ -117,6 +118,14 @@ public class HeadQuarter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HeadQuarter.this, TaskSettings.class);
+                intent.putExtra("from","head");
+                startActivity(intent);
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HeadQuarter.this,RewardSettings.class);
                 intent.putExtra("from","head");
                 startActivity(intent);
             }

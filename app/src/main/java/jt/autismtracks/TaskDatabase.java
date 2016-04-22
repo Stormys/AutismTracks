@@ -59,7 +59,7 @@ public class TaskDatabase {
         db.insert(RewardsTableContents.RewardsEntry.TABLE_NAME, null, initialValues);
     }
 
-    public void insertEmptyTask(String title) {
+    public long insertEmptyTask(String title) {
         db = DBhelper.getWritableDatabase();
         ContentValues initialValues = new ContentValues();
         initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Task,title);
@@ -67,7 +67,7 @@ public class TaskDatabase {
         initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Alarm,false);
         initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Points,50);
         initialValues.put(TaskTableContents.TaskEntry.COLUMN_NAME_Icon_Src,"@drawable/agenda");
-        db.insert(TaskTableContents.TaskEntry.TABLE_NAME, null, initialValues);
+        return db.insert(TaskTableContents.TaskEntry.TABLE_NAME, null, initialValues);
     }
 
     public Cursor getTasks() {
@@ -78,8 +78,44 @@ public class TaskDatabase {
 
     public Cursor getGoals() {
         db = DBhelper.getReadableDatabase();
-        Cursor c = db.rawQuery( "select * from" + RewardsTableContents.RewardsEntry.TABLE_NAME, null);
+        Cursor c = db.rawQuery( "select * from " + RewardsTableContents.RewardsEntry.TABLE_NAME + " ORDER BY Points ASC", null);
         return c;
+    }
+
+    public void check() {
+        db = DBhelper.getReadableDatabase();
+        Cursor c = db.rawQuery( "select * from " + "PointsTable", null);
+        c.moveToFirst();
+        int i = 0;
+        while (c.isAfterLast() == false) {
+            i++;
+            c.moveToNext();
+        }
+        if (i == 0) {
+            ContentValues initialValues = new ContentValues();
+            initialValues.put("Points",0);
+            db.insert("PointsTable",null,initialValues);
+        }
+    }
+
+    public int getPoints() {
+        db = DBhelper.getWritableDatabase();
+        Cursor c = db.rawQuery( "select * from " + "PointsTable", null );
+        c.moveToFirst();
+        return c.getInt(1);
+    }
+
+    public void updatePoints(int points) {
+        db = DBhelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("Points",getPoints() + points);
+        String selection = TaskTableContents.TaskEntry._ID + " Like ?";
+        String[] selectionArgs = { String.valueOf(1)};
+        db.update("PointsTable",
+                contentValues,
+                selection,
+                selectionArgs);
+
     }
 
     public Cursor getChecked() {
@@ -149,6 +185,7 @@ public class TaskDatabase {
     }
 
     public void delete_goal(long id) {
+        db = DBhelper.getWritableDatabase();
         db.delete(RewardsTableContents.RewardsEntry.TABLE_NAME, RewardsTableContents.RewardsEntry._ID + "=" + id, null);
     }
 

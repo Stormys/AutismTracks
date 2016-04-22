@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/settings_menu"
     tools:context="jt.autismtracks.RewardSettings"
     tools:showIn="@layout/activity_rewards_settings">
 
@@ -16,7 +17,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/new_reward"
         android:singleLine="true"
+        android:backgroundTint="@color/nickfav"
+        android:textCursorDrawable="@color/nickfav"
         android:inputType="textCapSentences"
+        android:textColor="@color/second"
+        android:textColorHint="@color/easy"
         android:maxLength="18"
         android:hint="New Reward"
         android:layout_alignParentTop="true"
@@ -26,18 +31,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/points_slider"
+        android:max="2000"
+        android:backgroundTint="@color/nickfav"
+        android:thumbTint="@color/nickfav"
+        android:progressBackgroundTint="@color/nickfav"
         android:layout_below="@+id/new_reward"
         android:layout_alignParentStart="true"
-        android:max="2000"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/new_reward" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/points_reward"
+        android:textColor="@color/second"
+        android:text="Points 0/2000"
+        android:textSize="20dp"
         android:layout_below="@+id/points_slider"
-        android:layout_alignEnd="@+id/points_slider"
-        android:text="Points 0/2000" />
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -46,16 +56,50 @@
         android:src="@drawable/agenda"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:layout_alignTop="@+id/points_reward"
-        android:layout_toStartOf="@+id/points_reward" />
+        android:background="@drawable/icon_chooser_button"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/points_reward"
+        android:layout_toStartOf="@+id/textView3"
+        android:layout_above="@+id/textView3" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete Task"
-        android:background="#d64444"
+        android:background="@drawable/delete_drawable"
+        android:text="Delete Reward"
+        android:textSize="30dp"
+        android:textColor="@color/clear"
         android:id="@+id/delete"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@drawable/agenda"
+        android:id="@+id/hidden"
+        android:layout_above="@+id/delete"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hey its me daddaddd"
+        android:id="@+id/textView2"
+        android:visibility="invisible"
+        android:layout_below="@+id/points_reward"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="114dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView2"
+        android:visibility="invisible" />
 
 </RelativeLayout>

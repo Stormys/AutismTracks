@@ -17,6 +17,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -65,6 +70,11 @@ public class TaskAdapter extends ArrayAdapter<Task>  {
                 objectItem.setDone(CheckItem.isChecked());
                 TaskDatabase td = new TaskDatabase(mContext);
                 td.update_checked(objectItem.getRowId(),objectItem.getDone());
+                if (CheckItem.isChecked()) {
+                    td.updatePoints(objectItem.getPoints());
+                } else {
+                    td.updatePoints(-1*objectItem.getPoints());
+                }
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override

@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by julian on 4/16/16.
  */
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "TaskDatabase.db";
 
     private static final String TEXT_TYPE = " TEXT";
@@ -31,12 +31,17 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                     RewardsTableContents.RewardsEntry.COLUMN_NAME_Reward + TEXT_TYPE + COMMA_SEP +
                     RewardsTableContents.RewardsEntry.COLUMN_NAME_POINTS + INT_TYPE + COMMA_SEP +
                     RewardsTableContents.RewardsEntry.COLUMN_NAME_ICON + TEXT_TYPE +  ")";
+    private static final String SQL_CREATE_POINTS =
+            "CREATE TABLE " + "PointsTable" + " (" +
+                    RewardsTableContents.RewardsEntry._ID + " INTEGER PRIMARY KEY," +
+                    "Points" + INT_TYPE + ")";
+
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TaskTableContents.TaskEntry.TABLE_NAME;
 
     private static final String SQL_DELETE_GOALS =
-            "DROP TABLE IF EXISTS" + RewardsTableContents.RewardsEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + RewardsTableContents.RewardsEntry.TABLE_NAME;
 
     public TaskDatabaseHelper(Context mContext) {
         super(mContext, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,11 +50,13 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
         db.execSQL(SQL_CREATE_GOALS);
+     //   db.execSQL(SQL_CREATE_POINTS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
         db.execSQL(SQL_DELETE_GOALS);
+        db.execSQL(SQL_CREATE_POINTS);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -59,6 +66,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     public void delete_all(SQLiteDatabase db) {
         db.execSQL(SQL_DELETE_ENTRIES);
         db.execSQL(SQL_DELETE_GOALS);
+        db.execSQL("DROP TABLE IF EXISTS PointsTable");
         onCreate(db);
     }
 

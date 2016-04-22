@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +47,7 @@ public class TaskSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_settings);
+        setContentView(R.layout.content_task_settings);
         temp = (EditText) findViewById(R.id.new_task);
         tvDate = (TextView) findViewById(R.id.date);
         tvTime = (TextView) findViewById(R.id.time);
@@ -77,7 +78,7 @@ public class TaskSettings extends AppCompatActivity {
         Button test = (Button) findViewById(R.id.delete);
         final long test2 = getIntent().getLongExtra("id",-1);
         if ( test2 == -1) {
-            test.setBackgroundResource(R.drawable.delete_grey);
+            test.setVisibility(View.INVISIBLE);
             test.setEnabled(false);
         } else {
             test.setOnClickListener(new View.OnClickListener() {

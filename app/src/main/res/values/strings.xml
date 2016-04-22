@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AutismTracks</string>
+    <string name="app_name">HabiTracks</string>
     <string name="title_activity_task_settings">TaskSettings</string>
     <string name="title_activity_rewards">Rewards</string>
     <string name="title_activity_app_settings">Settings</string>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_menu"
     android:fitsSystemWindows="true"
     tools:context="jt.autismtracks.HeadQuarter">
 
@@ -16,6 +17,7 @@
         android:layout_marginBottom="150dp"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin"
+        app:backgroundTint="#804678"
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
@@ -40,6 +42,7 @@
         android:layout_marginBottom="90dp"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin"
+        app:backgroundTint="#804678"
         android:visibility="invisible"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
@@ -49,7 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Goal"
+        android:text="Add Reward"
         android:id="@+id/add_goal_tv"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="75dp"
@@ -62,9 +65,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:alpha="0.89"
         android:layout_margin="@dimen/fab_margin"
         android:tint="#ffff"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#3F51B5" />
+        app:backgroundTint="@color/nick" />
 
 </android.support.design.widget.CoordinatorLayout>

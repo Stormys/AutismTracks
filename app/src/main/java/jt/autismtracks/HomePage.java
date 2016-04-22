@@ -36,7 +36,6 @@ public class HomePage extends AppCompatActivity {
     private TaskAdapter adapter;
     private TaskDatabase td = new TaskDatabase(this);
     private ListView lv;
-    private RelativeLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,6 @@ public class HomePage extends AppCompatActivity {
         create_toolbar();
         create_show_checked_button();
         item_clickers();
-        layout = (RelativeLayout) findViewById(R.id.layout);
-        layout.setBackground(Background.create_background(this));
     }
 
     private void create_toolbar() {
@@ -168,7 +165,7 @@ public class HomePage extends AppCompatActivity {
                             t.setSrc("@drawable/agenda");
                             values.add(0,t);
                             adapter.notifyDataSetChanged();
-                            td.insertEmptyTask(editText.getText().toString());
+                            t.setRowId(td.insertEmptyTask(editText.getText().toString()));
                         }
                     }
                 })

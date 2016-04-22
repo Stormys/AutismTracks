@@ -7,6 +7,7 @@ public class Rewards_class {
     private String title;
     private int points;
     private String icon_src;
+    private long id;
 
     public String getTitle() { return title; }
     public void setTitle(String title) {
@@ -27,4 +28,7 @@ public class Rewards_class {
     public  void setIcon_src(String klefstad) {
         this.icon_src = klefstad;
     }
+
+    public void setId(long id) { this.id = id; }
+    public long getId() {return id;}
 }
