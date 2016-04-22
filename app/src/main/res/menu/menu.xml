@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
     <item android:id="@+id/open"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/gears"
         android:title="Settings"
         yourapp:showAsAction="always"  />
 </menu>

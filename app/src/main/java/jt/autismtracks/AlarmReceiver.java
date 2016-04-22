@@ -122,7 +122,7 @@ public class AlarmReceiver extends AppCompatActivity {
                 new Intent(this, AlarmReceiver.class), 0);
 
         NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
-                this).setContentTitle(_title).setSmallIcon(R.drawable.mini_shower_icon)
+                this).setContentTitle(_title).setSmallIcon(R.drawable.agenda)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg);
 

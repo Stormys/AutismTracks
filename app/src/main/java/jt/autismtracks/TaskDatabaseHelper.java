@@ -50,7 +50,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
         db.execSQL(SQL_CREATE_GOALS);
-     //   db.execSQL(SQL_CREATE_POINTS);
+        db.execSQL(SQL_CREATE_POINTS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

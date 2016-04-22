@@ -19,8 +19,10 @@
         android:numColumns="2"
         android:gravity="center"
         android:verticalSpacing="70dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:alpha="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp" />
 
 
 </RelativeLayout>

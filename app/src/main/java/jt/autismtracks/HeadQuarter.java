@@ -2,14 +2,19 @@ package jt.autismtracks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HeadQuarter extends AppCompatActivity {
 
@@ -141,8 +147,46 @@ public class HeadQuarter extends AppCompatActivity {
                 } else if (position == 1) {
                     Intent intent = new Intent(HeadQuarter.this, Rewards.class);
                     startActivity(intent);
+                } else if (position == 2) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/1693857870868096"));
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/habitracks")));
+                    }
+                } else if (position == 3) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("twitter://user?screen_name=habitracks"));
+                        startActivity(intent);
+
+                    }catch (Exception e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("https://twitter.com/habitracks")));
+                    }
+
+                } else if (position == 4) {
+                    Uri uri = Uri.parse("http://instagram.com/_u/habitracks");
+                    Intent insta = new Intent(Intent.ACTION_VIEW, uri);
+                    insta.setPackage("com.instagram.android");
+
+                    if (isIntentAvailable(getApplicationContext(), insta)){
+                        startActivity(insta);
+                    } else{
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/habitracks")));
+                    }
+                } else if (position == 5) {
+                    Intent intent = new Intent(HeadQuarter.this, AppSettingsActivity.class);
+                    startActivity(intent);
                 }
             }
         } );
+    }
+
+
+    private boolean isIntentAvailable(Context ctx, Intent intent) {
+        final PackageManager packageManager = ctx.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
     }
 }
